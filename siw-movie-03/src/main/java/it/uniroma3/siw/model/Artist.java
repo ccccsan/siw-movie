@@ -27,8 +27,12 @@ public class Artist {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
+	
 	private String urlOfPicture;
 	
+//	@Column(nullable = true, length = 64)
+//	private String photo;
+
 	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
 	
@@ -39,6 +43,14 @@ public class Artist {
 		this.starredMovies = new HashSet<>();
 		this.directedMovies = new LinkedList<>();
 	}
+	
+//	public String getPhoto() {
+//		return photo;
+//	}
+//
+//	public void setPhoto(String photo) {
+//		this.photo = photo;
+//	}
 	
 	public Long getId() {
 		return id;

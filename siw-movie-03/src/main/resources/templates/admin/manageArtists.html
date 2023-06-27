@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Artisti</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+	<h1>Artisti:</h1>
+	<div th:if="${artists.isEmpty()}">Non ci sono artisti nel sistema</div>
+	<ul>
+		<li th:each="artist : ${artists}">
+			   <span th:text="${artist.name} + ' ' + ${artist.surname} ">mario rossi</span>
+			<div>
+				<a th:href="@{'/admin/deleteArtist' + '/' + ${artist.id}}">Elimina</a>
+			</div>
+
+		</li>
+	</ul>
+</body>
+
+</html>

@@ -90,6 +90,23 @@ public class MovieController {
 		model.addAttribute("movie", movieService.getMovieById(id));
 		return "admin/directorsToAdd.html";
 	}
+	
+//	@PostMapping("/admin/movie")
+//	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model,
+//			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+//		this.movieValidator.validate(movie, bindingResult);
+//		if (!bindingResult.hasErrors()) {
+//			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//			movie.addPhotos(fileName);
+//			this.movieService.createNewMovie(movie);
+//			model.addAttribute("movie", movie);
+//			String uploadDir = "movie-photos/" + movie.getId();
+//			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//			return "movie.html";
+//		} else {
+//			return "admin/formNewMovie.html";
+//		}
+//	}
 
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {

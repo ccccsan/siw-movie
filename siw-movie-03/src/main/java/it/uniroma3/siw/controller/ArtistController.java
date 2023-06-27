@@ -61,4 +61,23 @@ public class ArtistController {
 		model.addAttribute("artists", artists);
 		return "artists.html";
 	}
+	
+//	@GetMapping("/admin/formUpdateArtist/{id}")
+//	public String formUpdateArtist(@PathVariable("id") Long id, Model model) {
+//		model.addAttribute("artist", this.artistService.getActorById(id));
+//		return "admin/formUpdateArtist.html";
+//	}
+	
+	@GetMapping("/admin/manageArtists")
+	public String manageArtists(Model model) {
+		model.addAttribute("artists", this.artistService.getAllArtists());
+		return "admin/manageArtists.html";
+	}
+	
+	@GetMapping("/admin/deleteArtist/{id}")
+	public String deleteArtist(@PathVariable("id") Long id, Model model) {
+		this.artistService.deleteArtist(id);
+		model.addAttribute("artists", this.artistService.getAllArtists());
+		return "admin/manageArtists.html";
+	}
 }

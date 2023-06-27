@@ -1,13 +1,16 @@
 package it.uniroma3.siw.service;
 
-import it.uniroma3.siw.repository.ArtistRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import it.uniroma3.siw.model.Artist;
-
+import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.uniroma3.siw.model.Artist;
+import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.repository.ArtistRepository;
 
 @Service
 public class ArtistService {
@@ -38,6 +41,16 @@ public class ArtistService {
     @Transactional
     public void addArtist(@Valid Artist artist) {
         this.artistRepository.save(artist);
+    }
+    
+    @Transactional
+    public void deleteArtist(Long artistId) {
+    	Artist artist = this.getActorById(artistId);
+		Set<Movie> movies = artist.getActorOf();
+		for(Movie movie : movies) {
+			movie.getActors().remove(artist);
+		}
+		this.artistRepository.delete(artist);
     }
 
 }
