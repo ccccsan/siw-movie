@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		New Artist
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<h1>Aggiungi un artista</h1>
+	<form th:action="@{/admin/artist}" method="POST" th:object="${artist}">
+		<div>
+			<span th:text="${messaggioErrore}">Errore</span>
+		</div>
+		
+		<div>
+			<label>Nome:</label> <span><input required type="text" th:field="${artist.name}" /></span>
+		</div>
+
+		<div>
+			<label>Cognome:</label> <span><input required type="text" th:field="${artist.surname}" /></span>
+		</div>
+
+		<div>
+			<label>Data di nascita:</label> <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
+		</div>
+
+		<div>
+			<label>Fotografia (url):</label> <span><input type="text" th:field="${artist.urlOfPicture}" /></span>
+		</div>
+		
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+</body>
+
+</html>

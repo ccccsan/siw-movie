@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Film</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<h1>Film che soddisfano i requisiti</h1>
+	<div th:if="${movies.isEmpty()}">Non ci sono film che soddisfano i requisiti</div>
+	<ul th:if="${!movies.isEmpty()}">
+		<li th:each="movie : ${movies}">
+			<a href="movie.html" th:href="@{'/movie' + '/' + ${movie.id}}"
+				th:text="${movie.title} + ' (' + ${movie.year}+')'">Up! (2000)</a>
+		</li>
+	</ul>
+</body>
+
+</html>

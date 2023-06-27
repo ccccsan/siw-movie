@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SiwMovie - Homepage
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div><img src="/images/logo-siw.png" width="50%" /></div>
+	<h1>Consulta l'archivio</h1>
+	<div>
+		<a href="/movie">Elenco Film</a>
+	</div>
+	<div>
+		<a href="/artist">Elenco Artisti</a>
+	</div>
+</body>
+
+</html>
