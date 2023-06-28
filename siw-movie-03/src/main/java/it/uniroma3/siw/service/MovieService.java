@@ -6,14 +6,16 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
-import it.uniroma3.siw.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.controller.validator.ImageValidator;
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.repository.ArtistRepository;
+import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.repository.MovieRepository;
 
 @Service
@@ -30,6 +32,12 @@ public class MovieService {
 
     @Autowired
     private ReviewService reviewService;
+    
+    @Autowired
+    private ImageRepository imageRepository;
+    
+    @Autowired
+    private ImageValidator imageValidator;
 
     @Transactional
     public void addMovie(@Valid Movie movie) {

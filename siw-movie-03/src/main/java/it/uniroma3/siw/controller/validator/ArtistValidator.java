@@ -1,13 +1,12 @@
 package it.uniroma3.siw.controller.validator;
 
-import it.uniroma3.siw.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.model.Artist;
-import it.uniroma3.siw.repository.ArtistRepository;
+import it.uniroma3.siw.service.ArtistService;
 
 @Component
 public class ArtistValidator implements Validator {

@@ -1,11 +1,19 @@
 package it.uniroma3.siw.model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -41,9 +49,30 @@ public class Movie {
 	@OneToMany(mappedBy="movie")
 	private List<Review> reviews;
 
+	@OneToOne//(cascade = CascadeType.REMOVE)
+    private Image image;
+	@OneToMany//(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+	private List<Image> images;
+	
 	public Movie() {
-		//this.photos = new ArrayList<>();
+		this.images = new LinkedList<>();
 		this.reviews = new ArrayList<>();
+	}
+	
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public List<Review> getReviews() {

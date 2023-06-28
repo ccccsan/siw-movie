@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,6 +40,17 @@ public class Artist {
 	@OneToMany(mappedBy="director")
 	private List<Movie> directedMovies;
 	
+	@OneToOne
+	private Image profilePicture;
+	
+	public Image getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(Image profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
 	public Artist(){
 		this.starredMovies = new HashSet<>();
 		this.directedMovies = new LinkedList<>();

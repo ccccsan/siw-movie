@@ -23,7 +23,7 @@
 		<div th:if="${movie}">
 			<span th:text="${movie.title}">Up!</span>
 			<span th:text="'(' + ${movie.year} + ')'">2000</span>
-			<!--<span><img width="5%" th:src="${movie.urlImage}" /></span>-->
+			<span><img width="5%" th:src="${movie.urlImage}" /></span>
 		</div>
 		<div th:unless="${movie}">Non esiste</div>
 
@@ -36,11 +36,6 @@
 			<h2>Nessun regista per questo film</h2>
 		</div>
 
-		<h2>Attori:</h2>
-		<li th:each="actor : ${movie.actors}">
-			<span th:text="${actor.name}"> </span>
-		</li>
-
 		<!-- attori -->
 
 		<h2>Attori:</h2>
@@ -49,13 +44,13 @@
 			<span th:text="${actor.name}"> </span>
 		</li>
 
-
-		<!-- immagini -->
+<!---
+		<!-- immagini
 		<h2>Immagini: </h2>
 		<li th:each="image : ${movie.photos}">
 			<span> <img width="40%" th:src="@{${movie.photosImagePath} + ${image}}"> </span>
 		</li>
-
+-->
 		<!-- recensioni -->
 		<div>
 			<h2>Recensioni:</h2>
