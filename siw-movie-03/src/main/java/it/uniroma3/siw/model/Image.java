@@ -9,12 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Table;
 
 @Entity
-@Table
 public class Image {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -22,6 +19,10 @@ public class Image {
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private String base64Image;
+
+	public Image(){
+
+	}
 
 	public Image(byte[] bytes){
 		this.setBase64Image(Base64.getEncoder().encodeToString(bytes));
@@ -42,5 +43,4 @@ public class Image {
 	public void setBase64Image(String base64Image) {
 		this.base64Image = base64Image;
 	}
-
 }

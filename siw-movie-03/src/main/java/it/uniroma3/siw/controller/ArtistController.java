@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.controller.validator.ArtistValidator;
 import it.uniroma3.siw.model.Artist;
@@ -80,4 +84,29 @@ public class ArtistController {
 		model.addAttribute("artists", this.artistService.getAllArtists());
 		return "admin/manageArtists.html";
 	}
+	
+//	@GetMapping("/admin/formUpdateArtist/{id}")
+//	public String formUpdateArtist(@PathVariable("id") Long id, Model model) {
+//		Artist artist = this.artistService.getActorById(id);
+//		model.addAttribute("artist", artist);
+//		return "admin/formUpdateArtist.html";
+//	}
+	
+//	@PostMapping("/admin/addProfilePicture")
+//	public String addProfilePicture(@RequestParam("file") MultipartFile image, @RequestParam("artist") Long artistId, Model model)
+//			throws IOException {
+//		Artist artist = this.artistService.getActorById(artistId);
+//		this.artistService.addProfilePicture(artist, image);
+//		model.addAttribute("artist", artist);
+//		return "admin/formUpdateArtist.html";
+//	}
+//	
+//	@PostMapping("/admin/setProfilePicture")
+//	public String setProfilePicture(@RequestParam("file") MultipartFile image, @RequestParam("artist") Long artistId, Model model)
+//			throws IOException {
+//		Artist artist = this.artistService.getActorById(artistId);
+//		this.artistService.setProfilePicture(artist, image);
+//		model.addAttribute("artist", artist);
+//		return "admin/formUpdateArtist.html";
+//	}
 }

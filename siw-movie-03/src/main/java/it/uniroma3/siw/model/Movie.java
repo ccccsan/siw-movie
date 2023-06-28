@@ -82,24 +82,6 @@ public class Movie {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-	
-//	public ArrayList<String> getPhotos() {
-//		return photos;
-//	}
-//	
-//	public void addPhotos(String filename) {
-//		this.photos.add(filename);
-//	}
-//
-//	public void setPhotos(ArrayList<String> photos) {
-//		this.photos = photos;
-//	}
-//	
-//	@Transient
-//    public String getPhotosImagePath() {
-//        if (photos.isEmpty() || id == null) return null;
-//        return "/movie-photos/" + id + "/";
-//    }
 
 	public Long getId() {
 		return id;

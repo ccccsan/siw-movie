@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.controller.validator.ImageValidator;
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
@@ -37,13 +40,10 @@ public class MovieController {
 	private MovieValidator movieValidator;
 	
 	@Autowired 
-	private CredentialsService credentialsService;
+	private ImageValidator imageValidator;
 	
-//	@Autowired
-//	private ReviewService reviewService;
-
-//	@Autowired
-//	private ReviewService reviewService;
+	@Autowired 
+	private CredentialsService credentialsService;
 
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
@@ -109,17 +109,20 @@ public class MovieController {
 //	}
 
 	@PostMapping("/admin/movie")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model,
+			@RequestParam("file") MultipartFile image) throws IOException {
 		
 		this.movieValidator.validate(movie, bindingResult);
+		this.imageValidator.validate(image, bindingResult);
 		if (!bindingResult.hasErrors()) {
-			this.movieService.addMovie(movie);
+			this.movieService.createNewMovie(movie, image);
 			model.addAttribute("movie", movie);
 			return "movie.html";
 		} else {
 			return "admin/formNewMovie.html"; 
 		}
 	}
+	
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
@@ -207,5 +210,31 @@ public class MovieController {
 		return "admin/manageMovies.html";
 	}
 
+	@PostMapping(value = "/admin/addLocandina")
+	public String addLocandina(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
+			throws IOException {
+		Movie movie = this.movieService.getMovieById(movieId);
+		this.movieService.addLocandina(movie, image);
+		model.addAttribute("movie", movie);
+		return "admin/formUpdateMovie.html";
+	}
+	
+	@PostMapping(value = "/admin/addImage")
+	public String addImage(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
+			throws IOException {
+		Movie movie = this.movieService.getMovieById(movieId);
+		this.movieService.addImage(movie, image);
+		model.addAttribute("movie", movie);
+		return "admin/formUpdateMovie.html";
+	}
 
+	
+	@GetMapping(value = "/admin/removeImage/{movieId}/{imageId}")
+	public String removeImage(@PathVariable("movieId") Long movieId, @PathVariable("imageId") Long imageId,
+			Model model) {
+		this.movieService.removeImage(movieId, imageId);
+		model.addAttribute("movie", this.movieService.getMovieById(movieId));
+		return "admin/formUpdateMovie.html";
+	}
+	
 }
