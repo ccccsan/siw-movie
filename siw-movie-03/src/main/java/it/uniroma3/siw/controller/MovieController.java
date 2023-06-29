@@ -90,23 +90,6 @@ public class MovieController {
 		model.addAttribute("movie", movieService.getMovieById(id));
 		return "admin/directorsToAdd.html";
 	}
-	
-//	@PostMapping("/admin/movie")
-//	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model,
-//			@RequestParam("image") MultipartFile multipartFile) throws IOException {
-//		this.movieValidator.validate(movie, bindingResult);
-//		if (!bindingResult.hasErrors()) {
-//			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//			movie.addPhotos(fileName);
-//			this.movieService.createNewMovie(movie);
-//			model.addAttribute("movie", movie);
-//			String uploadDir = "movie-photos/" + movie.getId();
-//			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-//			return "movie.html";
-//		} else {
-//			return "admin/formNewMovie.html";
-//		}
-//	}
 
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model,
@@ -210,31 +193,31 @@ public class MovieController {
 		return "admin/manageMovies.html";
 	}
 
-	@PostMapping(value = "/admin/addLocandina")
-	public String addLocandina(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
-			throws IOException {
-		Movie movie = this.movieService.getMovieById(movieId);
-		this.movieService.addLocandina(movie, image);
-		model.addAttribute("movie", movie);
-		return "admin/formUpdateMovie.html";
-	}
-	
-	@PostMapping(value = "/admin/addImage")
-	public String addImage(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
-			throws IOException {
-		Movie movie = this.movieService.getMovieById(movieId);
-		this.movieService.addImage(movie, image);
-		model.addAttribute("movie", movie);
-		return "admin/formUpdateMovie.html";
-	}
-
-	
-	@GetMapping(value = "/admin/removeImage/{movieId}/{imageId}")
-	public String removeImage(@PathVariable("movieId") Long movieId, @PathVariable("imageId") Long imageId,
-			Model model) {
-		this.movieService.removeImage(movieId, imageId);
-		model.addAttribute("movie", this.movieService.getMovieById(movieId));
-		return "admin/formUpdateMovie.html";
-	}
+//	@PostMapping(value = "/admin/addLocandina")
+//	public String addLocandina(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
+//			throws IOException {
+//		Movie movie = this.movieService.getMovieById(movieId);
+//		this.movieService.addLocandina(movie, image);
+//		model.addAttribute("movie", movie);
+//		return "admin/formUpdateMovie.html";
+//	}
+//	
+//	@PostMapping(value = "/admin/addImage")
+//	public String addImage(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
+//			throws IOException {
+//		Movie movie = this.movieService.getMovieById(movieId);
+//		this.movieService.addImage(movie, image);
+//		model.addAttribute("movie", movie);
+//		return "admin/formUpdateMovie.html";
+//	}
+//
+//	
+//	@GetMapping(value = "/admin/removeImage/{movieId}/{imageId}")
+//	public String removeImage(@PathVariable("movieId") Long movieId, @PathVariable("imageId") Long imageId,
+//			Model model) {
+//		this.movieService.removeImage(movieId, imageId);
+//		model.addAttribute("movie", this.movieService.getMovieById(movieId));
+//		return "admin/formUpdateMovie.html";
+//	}
 	
 }
