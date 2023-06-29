@@ -24,7 +24,7 @@ public class Artist {
 	private LocalDate dateOfBirth;
 	
 	@Column(nullable = true, length = 64)
-	private String photo;
+	private String photos;
 
 	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
@@ -37,18 +37,18 @@ public class Artist {
 		this.directedMovies = new LinkedList<>();
 	}
 	
-	public String getPhoto() {
-		return photo;
+	public String getPhotos() {
+		return photos;
 	}
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setPhotos(String photo) {
+		this.photos = photo;
 	}
 
 	@Transient
 	public String getPhotosImagePath() {
-		if (photo.isEmpty() || id == null) return null;
-		return "/artist-photos/" + id + "/";
+		if (photos == null || id == null) return null;
+		return "/artist-photos/" + id + "/" + photos;
 	}
 	
 	public Long getId() {

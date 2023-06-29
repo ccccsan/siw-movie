@@ -1,7 +1,5 @@
 package it.uniroma3.siw.controller;
 
-import javax.validation.Valid;
-
 import it.uniroma3.siw.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +36,7 @@ public class ArtistController {
 							@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		if (!this.artistService.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			artist.setPhoto(fileName);
+			artist.setPhotos(fileName);
 			this.artistService.saveArtist(artist);
 			String uploadDir = "artist-photos/" + artist.getId();
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
