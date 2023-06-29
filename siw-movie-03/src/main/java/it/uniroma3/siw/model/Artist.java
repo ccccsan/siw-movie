@@ -7,13 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,40 +23,33 @@ public class Artist {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	
-	private String urlOfPicture;
-	
-//	@Column(nullable = true, length = 64)
-//	private String photo;
+	@Column(nullable = true, length = 64)
+	private String photo;
 
 	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
 	
 	@OneToMany(mappedBy="director")
 	private List<Movie> directedMovies;
-	
-	@OneToOne
-	private Image profilePicture;
-	
-	public Image getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(Image profilePicture) {
-		this.profilePicture = profilePicture;
-	}
 
 	public Artist(){
 		this.starredMovies = new HashSet<>();
 		this.directedMovies = new LinkedList<>();
 	}
 	
-//	public String getPhoto() {
-//		return photo;
-//	}
-//
-//	public void setPhoto(String photo) {
-//		this.photo = photo;
-//	}
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (photo.isEmpty() || id == null) return null;
+		return "/artist-photos/" + id + "/";
+	}
 	
 	public Long getId() {
 		return id;
@@ -94,14 +81,6 @@ public class Artist {
 	
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
-	}
-	
-	public String getUrlOfPicture() {
-		return urlOfPicture;
-	}
-	
-	public void setUrlOfPicture(String urlOfPicture) {
-		this.urlOfPicture = urlOfPicture;
 	}
 	
 	public Set<Movie> getActorOf() {

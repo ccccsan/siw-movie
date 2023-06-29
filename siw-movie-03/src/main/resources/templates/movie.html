@@ -20,17 +20,17 @@
 	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
 	<h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
 	<ul>
+		<!--
 			<div th:if="${movie.image != null}">
 				<img th:src="@{'data:image/*;base64,' + ${movie.image.base64Image}}" alt="Copertina" />
 			</div>
 			<th:block th:if="${!movie.images.isEmpty()}" th:each="image : ${movie.images}">
 				<img th:src="@{'data:image/*;base64,' + ${image.base64Image}}" alt="Immagine" />
 			</th:block>
-		<!--<div th:if="${movie}">
+		<div th:if="${movie}">
 			<span th:text="${movie.title}">Up!</span>
 			<span th:text="'(' + ${movie.year} + ')'">2000</span>
 			<span><img width="5%" th:src="${movie.urlImage}" /></span>-->
-		</div>
 		<div th:unless="${movie}">Non esiste</div>
 
 		<!-- regista -->
@@ -52,13 +52,13 @@
 		<div th:unless="${movie.actors}">
 			<h2>Nessun attore per questo film</h2>
 		</div>
-		<!---
-		<!-- immagini
+
+		<!-- immagini --->
 		<h2>Immagini: </h2>
 		<li th:each="image : ${movie.photos}">
 			<span> <img width="40%" th:src="@{${movie.photosImagePath} + ${image}}"> </span>
 		</li>
--->
+
 		<!-- recensioni -->
 		<div>
 			<h2>Recensioni:</h2>

@@ -6,14 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -34,11 +27,8 @@ public class Movie {
     @Max(2023)
 	private Integer year;
     
-	private String urlImage;
-    
-//    @Column(nullable = true, length = 64)
-//    private ArrayList<String> photos;
-	
+    @Column(nullable = true, length = 64)
+    private ArrayList<String> photos;
 
 	@ManyToOne
 	private Artist director;
@@ -49,30 +39,28 @@ public class Movie {
 	@OneToMany(mappedBy="movie")
 	private List<Review> reviews;
 
-	@OneToOne//(cascade = CascadeType.REMOVE)
-    private Image image;
-	@OneToMany//(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
-	private List<Image> images;
 	
 	public Movie() {
-		this.images = new LinkedList<>();
+		this.photos = new ArrayList<>();
 		this.reviews = new ArrayList<>();
 	}
-	
-	public Image getImage() {
-		return image;
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (photos.isEmpty() || id == null) return null;
+		return "/movie-photos/" + id + "/";
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
+	public List<String> getPhotos() {
+		return photos;
 	}
 
-	public List<Image> getImages() {
-		return images;
+	public void addPhotos(String filename) {
+		this.photos.add(filename);
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
+	public void setPhotos(ArrayList<String> photos) {
+		this.photos = photos;
 	}
 
 	public List<Review> getReviews() {
@@ -104,14 +92,6 @@ public class Movie {
 
 	public void setYear(Integer year) {
 		this.year = year;
-	}
-	
-	public String getUrlImage() {
-		return urlImage;
-	}
-
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
 	}
 
 	public Artist getDirector() {

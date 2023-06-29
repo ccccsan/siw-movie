@@ -3,6 +3,7 @@
   <head>
     <title>Artista</title>
 	<link rel="stylesheet" href="/css/stile.css" />
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -21,7 +22,7 @@
     <div th:if="${artist}">
         <span th:text="${artist.name} + ' ' + ${artist.surname}">Dino Risi</span>
         <span th:text="'(' + ${artist.dateOfBirth} + ')'">20/20/2000</span>
-        <span><img width="5%" th:src=${artist.urlOfPicture} /></span>
+        <span><img width="50%" th:src="@{${artist.photosImagePath}}" /></span>
     </div>
     <div th:unless="${artist}">Non esiste</div>
   </body>

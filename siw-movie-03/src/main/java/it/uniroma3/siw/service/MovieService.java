@@ -1,25 +1,20 @@
 package it.uniroma3.siw.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import it.uniroma3.siw.controller.validator.ImageValidator;
 import it.uniroma3.siw.model.Artist;
-import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.repository.ArtistRepository;
-import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.repository.MovieRepository;
+
+import javax.validation.Valid;
 
 @Service
 public class MovieService {
@@ -36,29 +31,23 @@ public class MovieService {
 	@Autowired
 	private ReviewService reviewService;
 
-	@Autowired
-	private ImageRepository imageRepository;
+    @Transactional
+    public void saveMovie(@Valid Movie movie) {
+        this.movieRepository.save(movie);
+    }
 
-	@Autowired
-	private ImageValidator imageValidator;
-
-//    @Transactional
-//    public void addMovie(@Valid Movie movie) {
-//        this.movieRepository.save(movie);
-//    }
-
-	@Transactional
-	public void createNewMovie(@Valid Movie movie, MultipartFile image) {
-		try {
-			Image movieImg = new Image(image.getBytes());
-			this.imageRepository.save(movieImg);
-			movie.setImage(movieImg);
-			this.movieRepository.save(movie);
-		} catch (Exception e) {
-			movie.setImage(null);
-		}
-
-	}
+//	@Transactional
+//	public void createNewMovie(@Valid Movie movie, MultipartFile image) {
+//		try {
+//			Image movieImg = new Image(image.getBytes());
+//			this.imageRepository.save(movieImg);
+//			movie.setImage(movieImg);
+//			this.movieRepository.save(movie);
+//		} catch (Exception e) {
+//			movie.setImage(null);
+//		}
+//
+//	}
 
 	public Movie getMovieById(Long id) {
 		return this.movieRepository.findById(id).get();
@@ -139,32 +128,32 @@ public class MovieService {
 		return this.movieRepository.save(movie);
 	}
 
-	@Transactional
-	public void addImage(Movie movie, MultipartFile image) throws IOException {
-		if (this.imageValidator.isImage(image) || image.getSize() < ImageValidator.MAX_IMAGE_SIZE) {
-			Image movieImg = new Image(image.getBytes());
-			this.imageRepository.save(movieImg);
-			movie.getImages().add(movieImg);
-			this.movieRepository.save(movie);
-		}
-
-	}
-
-	@Transactional
-	public void removeImage(Long movieId, Long imageId) {
-		Image image = this.imageRepository.findById(imageId).get();
-		Movie movie = this.getMovieById(movieId);
-		movie.getImages().remove(image);
-		this.movieRepository.save(movie);
-	}
-
-	@Transactional
-	public void addLocandina(Movie movie, MultipartFile image) throws IOException {
-		if (this.imageValidator.isImage(image) || image.getSize() < ImageValidator.MAX_IMAGE_SIZE) {
-			Image movieImg = new Image(image.getBytes());
-			this.imageRepository.save(movieImg);
-			movie.setImage(movieImg);
-			this.movieRepository.save(movie);
-		}
-	}
+//	@Transactional
+//	public void addImage(Movie movie, MultipartFile image) throws IOException {
+//		if (this.imageValidator.isImage(image) || image.getSize() < ImageValidator.MAX_IMAGE_SIZE) {
+//			Image movieImg = new Image(image.getBytes());
+//			this.imageRepository.save(movieImg);
+//			movie.getImages().add(movieImg);
+//			this.movieRepository.save(movie);
+//		}
+//
+//	}
+//
+//	@Transactional
+//	public void removeImage(Long movieId, Long imageId) {
+//		Image image = this.imageRepository.findById(imageId).get();
+//		Movie movie = this.getMovieById(movieId);
+//		movie.getImages().remove(image);
+//		this.movieRepository.save(movie);
+//	}
+//
+//	@Transactional
+//	public void addLocandina(Movie movie, MultipartFile image) throws IOException {
+//		if (this.imageValidator.isImage(image) || image.getSize() < ImageValidator.MAX_IMAGE_SIZE) {
+//			Image movieImg = new Image(image.getBytes());
+//			this.imageRepository.save(movieImg);
+//			movie.setImage(movieImg);
+//			this.movieRepository.save(movie);
+//		}
+//	}
 }

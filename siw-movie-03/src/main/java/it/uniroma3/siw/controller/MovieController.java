@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import it.uniroma3.siw.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import it.uniroma3.siw.controller.validator.ImageValidator;
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Credentials;
@@ -38,10 +39,7 @@ public class MovieController {
 
 	@Autowired 
 	private MovieValidator movieValidator;
-	
-	@Autowired 
-	private ImageValidator imageValidator;
-	
+
 	@Autowired 
 	private CredentialsService credentialsService;
 
@@ -93,12 +91,14 @@ public class MovieController {
 
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model,
-			@RequestParam("file") MultipartFile image) throws IOException {
-		
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		this.movieValidator.validate(movie, bindingResult);
-		this.imageValidator.validate(image, bindingResult);
 		if (!bindingResult.hasErrors()) {
-			this.movieService.createNewMovie(movie, image);
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			movie.addPhotos(fileName);
+			this.movieService.saveMovie(movie);
+			String uploadDir = "movie-photos/" + movie.getId();
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			model.addAttribute("movie", movie);
 			return "movie.html";
 		} else {
