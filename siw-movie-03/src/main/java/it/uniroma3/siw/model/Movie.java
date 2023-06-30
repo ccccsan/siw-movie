@@ -1,10 +1,6 @@
 package it.uniroma3.siw.model;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -27,40 +23,29 @@ public class Movie {
     @Max(2023)
 	private Integer year;
     
-    @Column(nullable = true, length = 64)
-    private ArrayList<String> photos;
+	private byte[] photo;
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 
 	@ManyToOne
 	private Artist director;
 	
 	@ManyToMany
-	private Set<Artist> actors;
+	private List<Artist> actors;
 
 	@OneToMany(mappedBy="movie")
 	private List<Review> reviews;
 
 	
 	public Movie() {
-		this.photos = new ArrayList<>();
+		this.actors = new LinkedList<>();
 		this.reviews = new ArrayList<>();
-	}
-
-	@Transient
-	public String getPhotosImagePath() {
-		if (photos.isEmpty() || id == null) return null;
-		return "/movie-photos/" + id + "/";
-	}
-
-	public List<String> getPhotos() {
-		return photos;
-	}
-
-	public void addPhotos(String filename) {
-		this.photos.add(filename);
-	}
-
-	public void setPhotos(ArrayList<String> photos) {
-		this.photos = photos;
 	}
 
 	public List<Review> getReviews() {
@@ -102,11 +87,11 @@ public class Movie {
 		this.director = director;
 	}
 
-	public Set<Artist> getActors() {
+	public List<Artist> getActors() {
 		return actors;
 	}
 
-	public void setActors(Set<Artist> actors) {
+	public void setActors(List<Artist> actors) {
 		this.actors = actors;
 	}
 

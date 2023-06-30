@@ -1,6 +1,5 @@
 package it.uniroma3.siw.controller;
 
-import it.uniroma3.siw.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,11 +34,9 @@ public class ArtistController {
 	public String newArtist(@ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model,
 							@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		if (!this.artistService.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			artist.setPhotos(fileName);
+			byte[] photoBytes = multipartFile.getBytes();
+			artist.setImage(photoBytes);
 			this.artistService.saveArtist(artist);
-			String uploadDir = "artist-photos/" + artist.getId();
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			model.addAttribute("artist", artist);
 			return "artist.html";
 		} else {
@@ -51,6 +48,11 @@ public class ArtistController {
 	@GetMapping("/artist/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
 		Artist artist = this.artistService.getActorById(id);
+		byte[] photo = artist.getImage();
+		if(photo != null) {
+			String image = java.util.Base64.getEncoder().encodeToString(photo);
+			model.addAttribute("image", image);
+		}
 		model.addAttribute("artist", artist);
 		return "artist.html";
 	}

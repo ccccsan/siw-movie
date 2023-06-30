@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,7 @@ import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.MovieRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -36,18 +38,12 @@ public class MovieService {
         this.movieRepository.save(movie);
     }
 
-//	@Transactional
-//	public void createNewMovie(@Valid Movie movie, MultipartFile image) {
-//		try {
-//			Image movieImg = new Image(image.getBytes());
-//			this.imageRepository.save(movieImg);
-//			movie.setImage(movieImg);
-//			this.movieRepository.save(movie);
-//		} catch (Exception e) {
-//			movie.setImage(null);
-//		}
-//
-//	}
+	@Transactional
+	public void createNewMovie(@Valid Movie movie, MultipartFile image) throws IOException {
+		byte[] bytes = image.getBytes();
+		movie.setPhoto(bytes);
+		this.movieRepository.save(movie);
+	}
 
 	public Movie getMovieById(Long id) {
 		return this.movieRepository.findById(id).get();
@@ -78,7 +74,7 @@ public class MovieService {
 	public Movie addActorToMovie(Long movieId, Long actorId) {
 		Movie movie = this.movieRepository.findById(movieId).get();
 		Artist actor = this.artistRepository.findById(actorId).get();
-		Set<Artist> actors = movie.getActors();
+		List<Artist> actors = movie.getActors();
 		actors.add(actor);
 		this.movieRepository.save(movie);
 		return movie;
@@ -88,7 +84,7 @@ public class MovieService {
 	public Movie removeActorFromMovie(Long movieId, Long actorId) {
 		Movie movie = this.getMovieById(movieId);
 		Artist actor = this.artistService.getActorById(actorId);
-		Set<Artist> actors = movie.getActors();
+		List<Artist> actors = movie.getActors();
 		actors.remove(actor);
 		this.movieRepository.save(movie);
 		return movie;
@@ -106,7 +102,7 @@ public class MovieService {
 	@Transactional
 	public void deleteMovie(Long movieId) {
 		Movie movie = this.getMovieById(movieId);
-		Set<Artist> actors = movie.getActors();
+		List<Artist> actors = movie.getActors();
 		for (Artist actor : actors) {
 			actor.getActorOf().remove(movie);
 		}
@@ -128,32 +124,10 @@ public class MovieService {
 		return this.movieRepository.save(movie);
 	}
 
-//	@Transactional
-//	public void addImage(Movie movie, MultipartFile image) throws IOException {
-//		if (this.imageValidator.isImage(image) || image.getSize() < ImageValidator.MAX_IMAGE_SIZE) {
-//			Image movieImg = new Image(image.getBytes());
-//			this.imageRepository.save(movieImg);
-//			movie.getImages().add(movieImg);
-//			this.movieRepository.save(movie);
-//		}
-//
-//	}
-//
-//	@Transactional
-//	public void removeImage(Long movieId, Long imageId) {
-//		Image image = this.imageRepository.findById(imageId).get();
-//		Movie movie = this.getMovieById(movieId);
-//		movie.getImages().remove(image);
-//		this.movieRepository.save(movie);
-//	}
-//
-//	@Transactional
-//	public void addLocandina(Movie movie, MultipartFile image) throws IOException {
-//		if (this.imageValidator.isImage(image) || image.getSize() < ImageValidator.MAX_IMAGE_SIZE) {
-//			Image movieImg = new Image(image.getBytes());
-//			this.imageRepository.save(movieImg);
-//			movie.setImage(movieImg);
-//			this.movieRepository.save(movie);
-//		}
-//	}
+	@Transactional
+	public Movie updateMovie(Movie oldMovie, Movie newMovie) {
+		oldMovie.setTitle(newMovie.getTitle());
+		oldMovie.setYear(newMovie.getYear());
+		return this.movieRepository.save(oldMovie);
+	}
 }

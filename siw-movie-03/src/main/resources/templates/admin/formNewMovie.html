@@ -6,6 +6,7 @@
 		New Movie
 	</title>
 	<link rel="stylesheet" href="/css/stile.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -40,18 +41,31 @@
 
 		<div>
 			<label>Locandina:</label>
-			<input type="file" accept="image/*" id="poster" name="file" required placeholder="poster" />
+			<input type="file" accept="image/*" id="fileImage" name="image" />
 		</div>
+		<div><img width="30%" id = "thumbnail" alt = "Locandina preview" /></div>
 
-		<!--<div>
-					<input type="file" name="image" accept="image/*" required/>
-     		<label>Carica immagine:</label> 
-			<label>Immagine:</label> <span><input type="text" th:field="${movie.urlImage}" /></span>
-		</div>
--->
 		<div>
 			<span><button type="submit">Conferma</button></span>
 		</div>
+		<script type = "text/javascript">
+			$(document).ready(function() {
+				$('#fileImage').change(function() {
+					showImageThumbnail(this);
+				});
+			});
+
+			function showImageThumbnail(fileInput) {
+				file = fileInput.files[0];
+				reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#thumbnail').attr('src', e.target.result)
+				};
+
+				reader.readAsDataURL(file);
+			}
+		</script>
 	</form>
 </body>
 

@@ -4,7 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.service.CredentialsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,19 +35,22 @@ public class ReviewController {
     @Autowired
     private ReviewValidator reviewValidator;
 
-    @PostMapping("/review/{movieId}")
+    @Autowired
+    private CredentialsService credentialsService;
+
+    @PostMapping("/user/review/{movieId}")
     public String newReview(@Valid @ModelAttribute Review review, BindingResult bindingResult, 
     		 @PathVariable("movieId") Long movieId, Model model) {
         this.reviewValidator.validate(review, bindingResult);
         Review newReview = this.reviewService.newReview(review, movieId);
         if (!bindingResult.hasErrors()) {
-        	Movie movie = this.movieService.addReviewToMovie(movieId, newReview.getId()); 
+        	Movie movie = this.movieService.addReviewToMovie(movieId, newReview.getId());
             model.addAttribute(newReview);
         	model.addAttribute(movie);
-            return "reviewSuccessful.html";
+            return "user/reviewSuccessful.html";
         } else {
             model.addAttribute("movie", this.movieService.getMovieById(movieId));
-            return "formNewReview.html";
+            return "user/formNewReview.html";
         }
     }
 

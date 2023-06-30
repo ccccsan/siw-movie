@@ -15,10 +15,10 @@
     </div>
 </header>
 
-<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+<div><a href="/static"><img src="/images/logo-siw.png" width="50%" /></a></div>
 
 <h3>Nuova recensione:</h3>
-<form th:action="@{'/review/' + ${movie.id}} " method="POST" th:object="${review}">
+<form th:action="@{'/user/review/' + ${movie.id}} " method="POST" th:object="${review}">
     <div th:if="${#fields.hasGlobalErrors()}">
         <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
     </div>
@@ -42,6 +42,5 @@
         <span><button type="submit">Conferma</button></span>
     </div>
 </form>
-
 </body>
 </html>

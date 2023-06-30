@@ -29,7 +29,7 @@
 		<div th:if="${movie.director}">
 			<span>Regista: </span><span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Steven
 				Spielberg</span>
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a></span>
+			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a>
 		</div>
 		<div th:unless="${movie.director}">
 			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Aggiungi regista</a>
@@ -44,7 +44,7 @@
 				<button type="button">Modifica</button>
 			</a>
 		</div>
-		
+	</div>
 		<div th:unless="${movie}">Film non esistente</div>
 </body>
 

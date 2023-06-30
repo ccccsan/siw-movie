@@ -22,7 +22,7 @@
 	<div th:if="${artist}">
 		<span th:text="${artist.name}">mario</span>
 		<span th:text="${artist.surname}">rossi</span>
-		<span><img width="5%" th:src="${artist.urlImage}" /></span>
+		<span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}" /></span>
 	</div>
 	<div th:unless="${artist}">Non esiste</div>
 <!--

@@ -40,7 +40,6 @@ public class ArtistService {
 
     @Transactional
     public void saveArtist(Artist artist) {
-
         this.artistRepository.save(artist);
     }
     

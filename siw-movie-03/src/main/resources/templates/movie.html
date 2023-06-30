@@ -2,82 +2,71 @@
 <html>
 
 <head>
-	<title>Film</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <title>Film</title>
+    <link rel="stylesheet" href="/css/stile.css"/>
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<header>
+    <div th:if="${#request.userPrincipal}">
+        <span th:text="${#request.userPrincipal.principal.username}"></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <div th:unless="${#request.userPrincipal}">
+        <a href="/login">Login</a>
+    </div>
+</header>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
-	<h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
-	<ul>
-		<!--
-			<div th:if="${movie.image != null}">
-				<img th:src="@{'data:image/*;base64,' + ${movie.image.base64Image}}" alt="Copertina" />
-			</div>
-			<th:block th:if="${!movie.images.isEmpty()}" th:each="image : ${movie.images}">
-				<img th:src="@{'data:image/*;base64,' + ${image.base64Image}}" alt="Immagine" />
-			</th:block>
-		<div th:if="${movie}">
-			<span th:text="${movie.title}">Up!</span>
-			<span th:text="'(' + ${movie.year} + ')'">2000</span>
-			<span><img width="5%" th:src="${movie.urlImage}" /></span>-->
-		<div th:unless="${movie}">Non esiste</div>
+<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+<h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
+<ul>
+    <div th:unless="${movie}">Non esiste</div>
 
-		<!-- regista -->
-		<div th:if="${movie.director}">
-			<h2>Regista:</h2>
-			<span th:text="${movie.director.name}"></span>
-		</div>
-		<div th:unless="${movie.director}">
-			<h2>Nessun regista per questo film</h2>
-		</div>
+    <!-- regista -->
+    <div th:if="${movie.director}">
+        <h2>Regista:</h2>
+        <span th:text="${movie.director.name}"></span>
+    </div>
+    <div th:unless="${movie.director}">
+        <h2>Nessun regista per questo film</h2>
+    </div>
 
-		<!-- attori -->
+    <!-- attori -->
+    <div th:if="${!movie.actors.isEmpty()}">
+        <h2>Attori:</h2>
+        <li th:each="actor : ${movie.actors}">
+            <span th:text="${actor.name}"> </span>
+        </li>
+    </div>
+    <div th:unless="${!movie.actors.isEmpty()}">
+        <h2>Non ci sono attori per questo film</h2>
+    </div>
 
-		<h2>Attori:</h2>
+    <!-- immagini --->
+    <div>
+        <h2>Locandina: </h2>
+        <span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
+    </div>
 
-		<li th:each="actor : ${movie.actors}">
-			<span th:text="${actor.name}"> </span>
-		</li>
-		<div th:unless="${movie.actors}">
-			<h2>Nessun attore per questo film</h2>
-		</div>
-
-		<!-- immagini --->
-		<h2>Immagini: </h2>
-		<li th:each="image : ${movie.photos}">
-			<span> <img width="40%" th:src="@{${movie.photosImagePath} + ${image}}"> </span>
-		</li>
-
-		<!-- recensioni -->
-		<div>
-			<h2>Recensioni:</h2>
-
-
-			<li th:each="review: ${movie.reviews}">
-				<span> Titolo: </span>
-				<span th:text="${review.title}"></span>
-				<span> Voto: </span>
-				<span th:text="${review.rate}"></span>
-				<span> Recensione: </span>
-				<span th:text="${review.comment}"></span>
-			</li>
-			<div th:unless="${!movie.reviews.isEmpty()}">Non ci recensioni per questo film</div>
-			<div>
-				<a th:href="@{'/addReview/' + ${movie.id}}">Aggiungi Recensione</a>
-			</div>
-		</div>
-	</ul>
+    <!-- recensioni -->
+    <div th:if="${!movie.reviews.isEmpty()}">
+        <h2>Recensioni:</h2>
+        <li th:each="review: ${movie.reviews}">
+            <span> Titolo: </span>
+            <span th:text="${review.title}"></span>
+            <span> Voto: </span>
+            <span th:text="${review.rate}"></span>
+            <span> Recensione: </span>
+            <span th:text="${review.comment}"></span>
+        </li>
+    </div>
+    <div th:unless="${!movie.reviews.isEmpty()}">
+        <h2>Non ci recensioni per questo film</h2>
+    </div>
+<!--    <div>-->
+<!--        <a th:href="@{'/addReview/' + ${movie.id}}">Aggiungi Recensione</a>-->
+<!--    </div>-->
+</ul>
 
 </body>
 

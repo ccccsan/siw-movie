@@ -22,9 +22,16 @@ public class Artist {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
-	
-	@Column(nullable = true, length = 64)
-	private String photos;
+
+	private byte[] image;
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
@@ -35,20 +42,6 @@ public class Artist {
 	public Artist(){
 		this.starredMovies = new HashSet<>();
 		this.directedMovies = new LinkedList<>();
-	}
-	
-	public String getPhotos() {
-		return photos;
-	}
-
-	public void setPhotos(String photo) {
-		this.photos = photo;
-	}
-
-	@Transient
-	public String getPhotosImagePath() {
-		if (photos == null || id == null) return null;
-		return "/artist-photos/" + id + "/" + photos;
 	}
 	
 	public Long getId() {
