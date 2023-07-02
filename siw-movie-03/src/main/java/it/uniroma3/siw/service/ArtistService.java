@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +49,13 @@ public class ArtistService {
     public void saveArtist(Artist artist) {
         this.artistRepository.save(artist);
     }
-    
+
+    @Transactional
+    public void setDateOfDeath(Artist artist, LocalDate dateOfDeath) {
+        artist.setDateOfDeath(dateOfDeath);
+        this.artistRepository.save(artist);
+    }
+
     @Transactional
     public void deleteArtist(Long artistId) {
     	Artist artist = this.getActorById(artistId);

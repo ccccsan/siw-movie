@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@1,600&display=swap');
+
 body {
-    font-family: "Geneva";
+    font-family: 'Ysabeau Office';
     color:dimgrey;
     background-image: url("/images/movies.jpeg");
     background-blend-mode: multiply;
@@ -38,7 +40,7 @@ p {
     color: #fff;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin-top: 70px;
     margin-bottom: 30px;
@@ -74,7 +76,7 @@ a {
 .menu a {
     display: inline-block;
     margin: 10px;
-    padding: 10px 20px;
+    padding: 10px 10px;
     background-color: #333;
     color: #fff;
     text-decoration: none;

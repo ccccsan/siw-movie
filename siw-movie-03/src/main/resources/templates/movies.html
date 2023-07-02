@@ -17,11 +17,13 @@
 		</div>
 	</header>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<div class="logo">
+		<a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 	<h1>Film presenti nel database</h1>
 	<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
 	<ul>
 		<li th:each="movie : ${movies}">
+			<span><img width="30%" th:src="'data:image/jpeg;base64,' + ${movie.photo}"/></span>
 			<a th:href="@{'/movie' + '/' + ${movie.id}}"
 				th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
 		</li>

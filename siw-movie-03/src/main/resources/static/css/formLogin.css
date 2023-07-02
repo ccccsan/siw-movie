@@ -33,6 +33,7 @@ header {
 .logo {
     text-align: center;
     margin-top: 50px;
+    margin-bottom: 10px;
 }
 
 .logo img {

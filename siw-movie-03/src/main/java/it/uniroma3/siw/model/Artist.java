@@ -23,6 +23,9 @@ public class Artist {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfDeath;
+
 	private byte[] image;
 
 	public byte[] getImage() {
@@ -76,6 +79,13 @@ public class Artist {
 	
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public LocalDate getDateOfDeath() {
+		return dateOfDeath;
+	}
+	public void setDateOfDeath(LocalDate dateOfDeath) {
+		this.dateOfDeath = dateOfDeath;
 	}
 
 	public Set<Movie> getStarredMovies() {

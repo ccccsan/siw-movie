@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -12,6 +13,7 @@ import it.uniroma3.siw.service.ArtistService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 @Controller
 public class ArtistController {
@@ -77,10 +79,19 @@ public class ArtistController {
 		return "admin/manageArtists.html";
 	}
 	
-//	@GetMapping("/admin/formUpdateArtist/{id}")
-//	public String formUpdateArtist(@PathVariable("id") Long id, Model model) {
-//		Artist artist = this.artistService.getActorById(id);
-//		model.addAttribute("artist", artist);
-//		return "admin/formUpdateArtist.html";
-//	}
+	@GetMapping("/admin/formUpdateArtist/{id}")
+	public String formUpdateArtist(@PathVariable("id") Long id, Model model) {
+		Artist artist = this.artistService.getActorById(id);
+		model.addAttribute("artist", artist);
+		return "admin/formUpdateArtist.html";
+	}
+
+	@PostMapping("/admin/setDateOfDeath")
+	public String setDateOfDeath(@RequestParam("dateOfDeath") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfDeath,
+								 @RequestParam("artist") Long artistId, Model model) {
+		Artist artist = this.artistService.getActorById(artistId);
+		this.artistService.setDateOfDeath(artist, dateOfDeath);
+		model.addAttribute("artist", artist);
+		return "admin/formUpdateArtist.html";
+	}
 }

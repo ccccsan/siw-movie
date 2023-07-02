@@ -1,18 +1,20 @@
-body { 
-    font-family: "Geneva";
-    color:dimgrey;
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@1,600&display=swap');
+body {
+    font-family: Ysabeau Office;
+    color:#cccccc;
     background-blend-mode: multiply;
     background-image: url("/images/movies.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-color: rgba(0, 0, 0, 0.7); /* Trasparenza di sfondo */
-    display: flex;
-    flex-direction: column;
+    /*display: flex;*/
+    /*flex-direction: column;*/
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     padding: 0;
+    font-size: 1.5em;
 }
 
 header {
@@ -40,17 +42,40 @@ label {
 	display: inline-block;
 }
 
-/*header {
-  background-color: rgb(98, 192, 144);
-  color: white;
-  height: 1.5em;
-  margin-bottom: 0.5em;
-  padding: 0.2em;
-  text-align: right; 
-}*/
-
 header a { 
 	text-decoration: none; 
     color: white;
     font-size: 0.6em;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 600px;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.movie-image, .artist-image {
+    max-width: 100%;
+    max-height: 100%;
 }

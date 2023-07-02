@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        SiwMovie - Update Artist
+    </title>
+    <link rel="stylesheet" href="/css/stile.css" />
+
+</head>
+
+
+<header>
+    <div th:if="${#request.userPrincipal}">
+        <span th:text="${#request.userPrincipal.principal.username}"></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <div th:unless="${#request.userPrincipal}">
+        <a href="/login">Login</a>
+    </div>
+</header>
+
+<body>
+
+<div class="logo"><img src="/images/logo-siw.png" width="50%"/></div>
+
+<h1>Aggiorna artista</h1>
+
+<div>
+    <div th:if="${artist}">
+        <div>
+            <span th:text="${artist.name} + ' ' + ${artist.surname}"></span>
+        </div>
+        <div>
+            <span>Data di nascita: </span>
+            <span th:text="${artist.dateOfBirth}"></span>
+        </div>
+
+        <div>
+
+            <div th:if="${artist.dateOfDeath != null}">
+                <span>Data di morte: </span>
+                <span th:text="${artist.dateOfDeath}"></span>
+            </div>
+            <div th:unless="${artist.dateOfDeath != null}">
+                <form th:action="@{/admin/setDateOfDeath}" method="POST">
+                    <label style="width: 15em;">Aggiungi data di morte: </label>
+                    <span><input type="date" name="dateOfDeath" /></span>
+                    <input type="hidden" name="artist" th:value="${artist.id}">
+                    <input class="custom-button2" type="submit" value="Aggiungi"></input>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:unless="${artist}">Artista non esistente</div>
+
+<div>
+    <a href="/admin/manageArtists">Torna all'elenco degli artisti</a>
+</div>
+</body>
+
+</html>

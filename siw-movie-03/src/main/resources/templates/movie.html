@@ -4,6 +4,29 @@
 <head>
     <title>Film</title>
     <link rel="stylesheet" href="/css/stile.css"/>
+    <style>
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+
+        .movie-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
 </head>
 <header>
     <div th:if="${#request.userPrincipal}">
@@ -16,16 +39,23 @@
 </header>
 <body>
 
+<div class="logo">
+    <a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
+</div>
 
-<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+
 <h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
 <ul>
     <div th:unless="${movie}">Non esiste</div>
 
     <!-- immagini --->
-    <div>
-        <h2>Locandina: </h2>
-        <span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
+    <h2>Locandina:</h2>
+    <div class="container">
+        <span>
+            <div class="container">
+                <img class="movie-image" th:src="'data:image/jpeg;base64,' + ${image}"/>
+            </div>
+        </span>
     </div>
 
     <!-- regista -->
@@ -41,7 +71,7 @@
     <div th:if="${!movie.actors.isEmpty()}">
         <h2>Cast:</h2>
         <li th:each="actor : ${movie.actors}">
-            <span th:text="${actor.name} + ' ' + ${actor.surname}"> </span>
+            <span th:text="${actor.name} + ' ' + ${actor.surname}"></span>
         </li>
     </div>
     <div th:unless="${!movie.actors.isEmpty()}">
@@ -52,16 +82,13 @@
     <div th:if="${!movie.reviews.isEmpty()}">
         <h2>Recensioni:</h2>
         <li th:each="review: ${movie.reviews}">
-            <div> Titolo:
-            <span th:text="${review.title}"></span></div>
-            <div> Voto:
-            <span th:text="${review.rate}"></span></div>
-            <div> Commento:
-            <span th:text="${review.comment}"></span></div>
+            <div>Titolo: <span th:text="${review.title}"></span></div>
+            <div>Voto: <span th:text="${review.rate}"></span></div>
+            <div>Commento: <span th:text="${review.comment}"></span></div>
         </li>
     </div>
     <div th:unless="${!movie.reviews.isEmpty()}">
-        <h2>Non ci recensioni per questo film</h2>
+        <h2>Non ci sono recensioni per questo film</h2>
     </div>
 </ul>
 
