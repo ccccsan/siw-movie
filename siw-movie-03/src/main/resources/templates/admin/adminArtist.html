@@ -25,28 +25,11 @@
 		<span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}" /></span>
 	</div>
 	<div th:unless="${artist}">Non esiste</div>
-<!--
-	<div>
-		<h2>Recensioni:</h2>
-		<div th:if="${movie.reviews.isEmpty()}">Non ci recensioni per questo film</div>
 
-		<ul>
-			<li th:each="review: ${movie.reviews}">
-				<span> Titolo: </span>
-				<span th:text="${review.title}"></span>
-				<span> Voto: </span>
-				<span th:text="${review.rate}"></span>
-				<span> Recensione: </span>
-				<span th:text="${review.comment}"></span>
-			</li>
-		</ul>
-	</div>
-	-->
 	<li th:each="artist : ${artists}">
 		<span th:text="${artist.name} + ' ' + ${artist.surname}"></span>
 		<a th:href="@{'/admin/deleteArtist/' + ${artist.id}}">Cancella Artista</a>
 	</li>
-	</div>
 
 </body>
 

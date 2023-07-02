@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -46,12 +47,14 @@ public class ArtistService {
     @Transactional
     public void deleteArtist(Long artistId) {
     	Artist artist = this.getActorById(artistId);
-		Set<Movie> movies = artist.getActorOf();
+		Set<Movie> movies = artist.getStarredMovies();
 		for(Movie movie : movies) {
 			movie.getActors().remove(artist);
 		}
+        List<Movie> movieList = artist.getDirectedMovies();
+        for (Movie movie : movieList) {
+            movie.setDirector(null);
+        }
 		this.artistRepository.delete(artist);
     }
-
-
 }

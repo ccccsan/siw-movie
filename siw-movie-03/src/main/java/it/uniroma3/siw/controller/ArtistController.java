@@ -83,22 +83,4 @@ public class ArtistController {
 //		model.addAttribute("artist", artist);
 //		return "admin/formUpdateArtist.html";
 //	}
-	
-//	@PostMapping("/admin/addProfilePicture")
-//	public String addProfilePicture(@RequestParam("file") MultipartFile image, @RequestParam("artist") Long artistId, Model model)
-//			throws IOException {
-//		Artist artist = this.artistService.getActorById(artistId);
-//		this.artistService.addProfilePicture(artist, image);
-//		model.addAttribute("artist", artist);
-//		return "admin/formUpdateArtist.html";
-//	}
-//	
-//	@PostMapping("/admin/setProfilePicture")
-//	public String setProfilePicture(@RequestParam("file") MultipartFile image, @RequestParam("artist") Long artistId, Model model)
-//			throws IOException {
-//		Artist artist = this.artistService.getActorById(artistId);
-//		this.artistService.setProfilePicture(artist, image);
-//		model.addAttribute("artist", artist);
-//		return "admin/formUpdateArtist.html";
-//	}
 }

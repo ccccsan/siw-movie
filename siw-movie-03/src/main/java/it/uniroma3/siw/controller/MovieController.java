@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -61,13 +60,19 @@ public class MovieController {
 	
 	@GetMapping(value="/admin/adminMovie/{id}")
 	public String adminMovie(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("movie", movieService.getMovieById(id));
+		Movie movie = this.movieService.getMovieById(id);
+		byte[] photo = movie.getPhoto();
+		if(photo != null) {
+			String image = java.util.Base64.getEncoder().encodeToString(photo);
+			model.addAttribute("image", image);
+		}
+		model.addAttribute("movie", movie);
 		return "admin/adminMovie.html";
 	}
 	
 	@GetMapping(value="/admin/manageMovies")
 	public String manageMovies(Model model) {
-		model.addAttribute("movies", this.movieService.getMovies());
+		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
 		return "admin/manageMovies.html";
 	}
 	
@@ -116,13 +121,8 @@ public class MovieController {
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
-
-//    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-
 		//model.addAttribute("movies", this.movieService.getAllMovies());
 		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
-//		model.addAttribute("user", credentials.getUser());
 		return "movies.html";
 	}
 	
@@ -150,7 +150,6 @@ public class MovieController {
 	@GetMapping(value="/admin/addActorToMovie/{actorId}/{movieId}")
 	public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
 		Movie movie = this.movieService.addActorToMovie(movieId, actorId);
-
 		List<Artist> actorsToAdd = this.movieService.findActorsNotInMovie(movieId);
 
 		model.addAttribute("movie", movie);
@@ -162,7 +161,6 @@ public class MovieController {
 	@GetMapping(value="/admin/removeActorFromMovie/{actorId}/{movieId}")
 	public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
 		Movie movie = this.movieService.removeActorFromMovie(movieId, actorId);
-
 		List<Artist> actorsToAdd = this.movieService.findActorsNotInMovie(movieId);
 		
 		model.addAttribute("movie", movie);
@@ -180,26 +178,14 @@ public class MovieController {
 		return "user/moviesUser.html";
 	}
 
-//	@GetMapping("/movie/{id}")
-//	public String getMovie(@PathVariable("id") Long id, Model model) {
-//		Movie movie = this.movieService.getMovieById(id);
-//		byte[] photo = movie.getPhoto();
+	@GetMapping(value="/user/movieUser/{id}")
+	public String getUserMovie(@PathVariable("id") Long id, Model model) {
+		Movie movie = this.movieService.getMovieById(id);
+//		byte[] photo = movie.getImage();
 //		if(photo != null) {
 //			String image = java.util.Base64.getEncoder().encodeToString(photo);
 //			model.addAttribute("image", image);
 //		}
-//		model.addAttribute("movie", movie);
-//		return "movie.html";
-//	}
-
-	@GetMapping(value="/user/movieUser/{id}")
-	public String getUserMovie(@PathVariable("id") Long id, Model model) {
-		Movie movie = this.movieService.getMovieById(id);
-		byte[] photo = movie.getPhoto();
-		if(photo != null) {
-			String image = java.util.Base64.getEncoder().encodeToString(photo);
-			model.addAttribute("image", image);
-		}
 		model.addAttribute("movie", movie);
 		return "user/movieUser.html";
 	}
@@ -235,32 +221,4 @@ public class MovieController {
 		model.addAttribute("movie", movie);
 		return "admin/formUpdateMovie.html";
 	}
-
-//	@PostMapping(value = "/admin/addLocandina")
-//	public String addLocandina(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
-//			throws IOException {
-//		Movie movie = this.movieService.getMovieById(movieId);
-//		this.movieService.addLocandina(movie, image);
-//		model.addAttribute("movie", movie);
-//		return "admin/formUpdateMovie.html";
-//	}
-//	
-//	@PostMapping(value = "/admin/addImage")
-//	public String addImage(@RequestParam("file") MultipartFile image, @RequestParam("movie") Long movieId, Model model)
-//			throws IOException {
-//		Movie movie = this.movieService.getMovieById(movieId);
-//		this.movieService.addImage(movie, image);
-//		model.addAttribute("movie", movie);
-//		return "admin/formUpdateMovie.html";
-//	}
-//
-//	
-//	@GetMapping(value = "/admin/removeImage/{movieId}/{imageId}")
-//	public String removeImage(@PathVariable("movieId") Long movieId, @PathVariable("imageId") Long imageId,
-//			Model model) {
-//		this.movieService.removeImage(movieId, imageId);
-//		model.addAttribute("movie", this.movieService.getMovieById(movieId));
-//		return "admin/formUpdateMovie.html";
-//	}
-	
 }

@@ -44,6 +44,21 @@
 				<button type="button">Modifica</button>
 			</a>
 		</div>
+
+		<div>
+			<span>Recensioni: </span>
+			<div th:unless="${!movie.reviews.isEmpty()}">Non ci sono recensioni</div>
+			<div th:each="review: ${movie.reviews}">
+				<span th:text="${review.title} + ' ' + ${review.rate}">Al Pacino</span>
+				<a th:href="@{'/admin/deleteReview/' + ${review.id} + '/' ${movie.id}}">
+					Cancella Recensione
+				</a>
+			</div>
+<!--			<a th:href="@{'/admin/deleteReview/' + ${review.id} + '/' ${movie.id}}">-->
+<!--				Cancella Recensione-->
+<!--			</a>-->
+<!--			<div th:unless="${!movie.reviews.isEmpty()}">Non ci sono recensioni da cancellare</div>-->
+		</div>
 	</div>
 		<div th:unless="${movie}">Film non esistente</div>
 </body>

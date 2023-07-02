@@ -33,17 +33,19 @@ public class Artist {
 		this.image = image;
 	}
 
-	@ManyToMany(mappedBy="actors")
+	@OneToMany(mappedBy="director", fetch = FetchType.EAGER)
+	private List<Movie> directedMovies;
+
+	@ManyToMany(mappedBy="actors", fetch = FetchType.EAGER)
 	private Set<Movie> starredMovies;
 	
-	@OneToMany(mappedBy="director")
-	private List<Movie> directedMovies;
+
 
 	public Artist(){
 		this.starredMovies = new HashSet<>();
 		this.directedMovies = new LinkedList<>();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -75,20 +77,20 @@ public class Artist {
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	
-	public Set<Movie> getActorOf() {
+
+	public Set<Movie> getStarredMovies() {
 		return starredMovies;
 	}
 
-	public void setActorOf(Set<Movie> starredMovies) {
+	public void setStarredMovies(Set<Movie> starredMovies) {
 		this.starredMovies = starredMovies;
 	}
 
-	public List<Movie> getDirectorOf() {
+	public List<Movie> getDirectedMovies() {
 		return directedMovies;
 	}
 
-	public void setDirectorOf(List<Movie> directedMovies) {
+	public void setDirectedMovies(List<Movie> directedMovies) {
 		this.directedMovies = directedMovies;
 	}
 

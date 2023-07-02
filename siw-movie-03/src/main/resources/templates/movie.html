@@ -22,10 +22,16 @@
 <ul>
     <div th:unless="${movie}">Non esiste</div>
 
+    <!-- immagini --->
+    <div>
+        <h2>Locandina: </h2>
+        <span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
+    </div>
+
     <!-- regista -->
     <div th:if="${movie.director}">
         <h2>Regista:</h2>
-        <span th:text="${movie.director.name}"></span>
+        <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
     </div>
     <div th:unless="${movie.director}">
         <h2>Nessun regista per questo film</h2>
@@ -33,39 +39,30 @@
 
     <!-- attori -->
     <div th:if="${!movie.actors.isEmpty()}">
-        <h2>Attori:</h2>
+        <h2>Cast:</h2>
         <li th:each="actor : ${movie.actors}">
-            <span th:text="${actor.name}"> </span>
+            <span th:text="${actor.name} + ' ' + ${actor.surname}"> </span>
         </li>
     </div>
     <div th:unless="${!movie.actors.isEmpty()}">
         <h2>Non ci sono attori per questo film</h2>
     </div>
 
-    <!-- immagini --->
-    <div>
-        <h2>Locandina: </h2>
-        <span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
-    </div>
-
     <!-- recensioni -->
     <div th:if="${!movie.reviews.isEmpty()}">
         <h2>Recensioni:</h2>
         <li th:each="review: ${movie.reviews}">
-            <span> Titolo: </span>
-            <span th:text="${review.title}"></span>
-            <span> Voto: </span>
-            <span th:text="${review.rate}"></span>
-            <span> Recensione: </span>
-            <span th:text="${review.comment}"></span>
+            <div> Titolo:
+            <span th:text="${review.title}"></span></div>
+            <div> Voto:
+            <span th:text="${review.rate}"></span></div>
+            <div> Commento:
+            <span th:text="${review.comment}"></span></div>
         </li>
     </div>
     <div th:unless="${!movie.reviews.isEmpty()}">
         <h2>Non ci recensioni per questo film</h2>
     </div>
-<!--    <div>-->
-<!--        <a th:href="@{'/addReview/' + ${movie.id}}">Aggiungi Recensione</a>-->
-<!--    </div>-->
 </ul>
 
 </body>

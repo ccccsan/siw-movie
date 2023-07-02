@@ -25,27 +25,30 @@ public class Movie {
     
 	private byte[] photo;
 
+	@ManyToOne
+	private Artist director;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Artist> actors;
+
+	@OneToMany(mappedBy="movie", fetch = FetchType.EAGER)
+	private List<Review> reviews;
+
+//	@OneToOne
+//	private Image image;
+
+	public Movie() {
+		this.actors = new LinkedList<>();
+		this.reviews = new ArrayList<>();
+	}
+
+
 	public byte[] getPhoto() {
 		return photo;
 	}
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
-	}
-
-	@ManyToOne
-	private Artist director;
-	
-	@ManyToMany
-	private List<Artist> actors;
-
-	@OneToMany(mappedBy="movie")
-	private List<Review> reviews;
-
-	
-	public Movie() {
-		this.actors = new LinkedList<>();
-		this.reviews = new ArrayList<>();
 	}
 
 	public List<Review> getReviews() {

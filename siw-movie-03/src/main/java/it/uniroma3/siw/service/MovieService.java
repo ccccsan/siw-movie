@@ -3,7 +3,6 @@ package it.uniroma3.siw.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +39,8 @@ public class MovieService {
 
 	@Transactional
 	public void createNewMovie(@Valid Movie movie, MultipartFile image) throws IOException {
-		byte[] bytes = image.getBytes();
-		movie.setPhoto(bytes);
+		byte[] movieImg = image.getBytes();
+		movie.setPhoto(movieImg);
 		this.movieRepository.save(movie);
 	}
 
@@ -104,7 +103,10 @@ public class MovieService {
 		Movie movie = this.getMovieById(movieId);
 		List<Artist> actors = movie.getActors();
 		for (Artist actor : actors) {
-			actor.getActorOf().remove(movie);
+			actor.getStarredMovies().remove(movie);
+		}
+		if (movie.getDirector()!=null) {
+			movie.getDirector().getDirectedMovies().remove(movie);
 		}
 		List<Review> reviews = movie.getReviews();
 		for (Review review : reviews) {

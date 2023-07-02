@@ -19,16 +19,16 @@
 
 <h1 th:text="'Hai inserito una nuova recensione per il film ' + ${movie.title}"></h1>
 	<div>
-		<h2>Titolo: </h3>
+		<h2>Titolo: </h2>
 		<h3 th:text="${review.title}"></h3>
 	</div>
 	<div>
 		<h2>Valutazione: </h2>
-		<h3 th:text="${review.rate}"></span>
+		<span th:text="${review.rate}"></span>
 	</div>
 	<div>
 		<h2>Commento: </h2>
-		<h3 th:text="${review.comment}"></h3>
+		<span th:text="${review.comment}"></span>
 	</div>
 
 	<div>
