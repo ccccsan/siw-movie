@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 import it.uniroma3.siw.model.Artist;
 
+import java.util.List;
+
 public interface ArtistRepository extends CrudRepository<Artist, Long> {
 
 	public boolean existsByNameAndSurname(String name, String surname);	
@@ -19,5 +21,6 @@ public interface ArtistRepository extends CrudRepository<Artist, Long> {
 			+ "where movie_actors.starred_movies_id = :movieId)", nativeQuery=true)
 	public Iterable<Artist> findActorsNotInMovie(@Param("movieId") Long id);
 
+	public List<Artist> findByOrderByNameAsc();
 
 }

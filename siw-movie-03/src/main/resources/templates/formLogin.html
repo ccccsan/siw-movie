@@ -1,107 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>
-		SiwMovie - Login
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-	<style>
-		body {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			margin: 0;
-			padding: 0;
-			background-image: url("/images/movies.jpeg");
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-color: rgba(0, 0, 0, 0.7); /* Trasparenza di sfondo */
-		}
-
-		form {
-			width: 300px;
-			padding: 20px;
-			border: 1px solid #ccc;
-			background-color: #f9f9f9;
-			border-radius: 5px;
-		}
-
-		h1 {
-			margin-top: 0;
-		}
-
-		div {
-			margin-bottom: 10px;
-		}
-
-		span {
-			display: block;
-		}
-
-		input[type="text"],
-		input[type="password"] {
-			width: 100%;
-			padding: 5px;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-		}
-
-		button[type="submit"] {
-			padding: 5px 10px;
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			border-radius: 3px;
-			cursor: pointer;
-		}
-
-		button[type="submit"]:hover {
-			background-color: #45a049;
-		}
-
-		a {
-			text-decoration: none;
-		}
-	</style>
+    <title>
+        SiwMovie - Login
+    </title>
+    <link rel="stylesheet" href="/css/formLogin.css"/>
 </head>
+<style>
 
+
+</style>
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<header>
+    <div th:if="${#request.userPrincipal}">
+        <span th:text="${#request.userPrincipal.principal.username}"></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <div th:unless="${#request.userPrincipal}">
+        <a href="/login">Login</a>
+    </div>
+</header>
 
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
-	</div>
-	<h1>Login</h1>
-	<form th:action="@{/login}" method="POST">
-			<div>
-				<span>Username:</span>
-				<span><input name="username" type="text" required /></span>
-			</div>
-			<div>
-				<span>Password:</span>
-				<span><input name="password" type="password" required /></span>
-			</div>
-			<div>
-				<span th:if="${param.error != null}">Username o password errati</span>
-			</div>
-			<div>
-				<span><button type="submit">Login</button></span>
-			</div>
-	</form>
-	<div>
-		<a th:href="@{/register}" th:text="Registrati">Registrati</a>
-	</div>
+<div class ="logo">
+    <a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
+</div>
+
+
+<h1>Login</h1>
+<div class="login-box">
+    <form th:action="@{/login}" method="POST">
+        <div class="form-group">
+            <label>Username:</label>
+            <input name="username" type="text" class="form-control" placeholder="Username" required/>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input name="password" type="password" class="form-control" placeholder="Password" required/>
+        </div>
+        <div class="form-group">
+            <span th:if="${param.error != null}">Username o password errati</span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+    <a th:href="@{/register}" th:text="Registrati">Registrati</a>
+</div>
+
 </body>
 
 </html>

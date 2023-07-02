@@ -11,28 +11,9 @@
   <title th:text="${title}"></title>
 </head>
 <body>
-<header th:fragment="intestazione">
-  <h1>Film</h1>
-</header>
-
-<script type = "text/javascript">
-  $(document).ready(function() {
-    $('#fileImage').change(function() {
-      showImageThumbnail(this);
-    });
-  });
-
-  function showImageThumbnail(fileInput) {
-    file = fileInput.files[0];
-    reader = new FileReader();
-
-    reader.onload = function(e) {
-      $('#thumbnail').attr('src', e.target.result)
-    };
-
-    reader.readAsDataURL(file);
-  }
-</script>
+<!--<header th:fragment="intestazione">-->
+<!--  <h1>Film</h1>-->
+<!--</header>-->
 
 <footer th:fragment="fondo(home)">
   <a href="/">

@@ -1,57 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>SiwMovie - Homepage</title>
-    <link rel="stylesheet" href="/css/stile.css"/>
-    <style>
-        body {
-            background-image: url("/images/movies.jpeg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-color: rgba(0, 0, 0, 0.7); /* Trasparenza di sfondo */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(255, 255, 255, 0.8); /* Trasparenza di sfondo per l'header */
-            padding: 10px;
-        }
-
-        body > div {
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            color: #fff;
-            font-size: 28px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-        }
-
-        .container {
-            background-color: rgba(255, 255, 255, 0.8); /* Trasparenza di sfondo per i container */
-            padding: 10px;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/index.css" />
 </head>
+
+<body>
 <header>
     <div th:if="${#request.userPrincipal}">
         <span th:text="${#request.userPrincipal.principal.username}"></span>
@@ -61,16 +15,22 @@
         <a href="/login">Login</a>
     </div>
 </header>
-<body>
 
-
-<!--<div><img src="/images/logo-siw.png" width="50%"/></div>-->
+<div class = "logo">
+    <img src="/images/logo-siw.png" width="50%"/>
+</div>
+<p>Benvenuti al Roma Tre Movie Database!</p>
+<p>Qui puoi consultare i film e gli artisti nel database:</p>
 <h1>Consulta l'archivio</h1>
-<div class = "container">
-    <a href="/movie">Elenco Film</a>
-<!--</div>-->
-<!--<div class = "container">-->
-    <a href="/artist">Elenco Artisti</a>
+<div class = "menu">
+    <a href="/movie">
+        <img src="images/movie-icon.png" alt="film logo" />
+        <span>Elenco Film</span>
+    </a>
+    <a href="/artist">
+        <img src="images/actor-icon.png" alt="artist logo" />
+        <span>Elenco Artisti</span>
+    </a>
 </div>
 </body>
 

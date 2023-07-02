@@ -1,0 +1,99 @@
+body {
+    font-family: "Geneva";
+    color:dimgrey;
+    background-image: url("/images/movies.jpeg");
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.7); /* Trasparenza di sfondo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body > div {
+    margin-bottom: 20px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.8); /* Trasparenza di sfondo per l'header */
+    padding: 10px;
+    justify-content: end;
+    text-align: right;
+}
+
+p {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    font-size: 40px;
+    color: #fff;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 600px;
+}
+
+.menu {
+    text-align: center;
+    margin-top:50px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    height: 100vh;
+    /*background-color: rgba(255, 255, 255, 0.8); /* Trasparenza di sfondo per i container */
+}
+
+.menu a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.menu a:hover {
+    background-color: #555;
+}
+
+.menu img {
+    display: block;
+    margin: 0 auto 10px;
+    width: 320px;
+    height: 320px;
+}
+
+.menu span {
+    display: block;
+    margin-top: 5px;
+}

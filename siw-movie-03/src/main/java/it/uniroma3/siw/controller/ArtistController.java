@@ -59,7 +59,7 @@ public class ArtistController {
 
 	@GetMapping("/artist")
 	public String getArtists(Model model) {
-		Iterable<Artist> artists = this.artistService.getAllArtists();
+		Iterable<Artist> artists = this.artistService.getAllArtistsByAsc();
 		model.addAttribute("artists", artists);
 		return "artists.html";
 	}

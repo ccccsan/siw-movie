@@ -5,8 +5,6 @@
     <title>Film</title>
     <link rel="stylesheet" href="/css/stile.css"/>
 </head>
-
-<body>
 <header>
     <div th:if="${#request.userPrincipal}">
         <span th:text="${#request.userPrincipal.principal.username}"></span>
@@ -16,6 +14,8 @@
         <a href="/login">Login</a>
     </div>
 </header>
+<body>
+
 
 <div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 <h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
