@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Artista</title>
-    <link rel="stylesheet" href="/css/stile.css"/>
+    <link rel="stylesheet" href="/css/artist.css"/>
 </head>
 <body>
 <header>
@@ -17,34 +17,42 @@
 
 <div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 
-<h1>Dettagli Artista</h1>
-<div th:if="${artist}">
-    <h2>Nome cognome: </h2>
-    <span th:text="${artist.name} + ' ' + ${artist.surname}">Dino Risi</span>
-    <h2>Data di nascita: </h2>
-    <span th:text="${artist.dateOfBirth}">20/20/2000</span>
 
-    <div th:if="${!artist.directedMovies.isEmpty()}">
-        <span>Film Diretti: </span>
-        <span th:each="movie : ${artist.directedMovies}">
+<h1>Dettagli Artista</h1>
+<div id="flex-container">
+    <div class="artist-inf" th:if="${artist}">
+        <h2>Nome cognome: </h2>
+        <span th:text="${artist.name} + ' ' + ${artist.surname}">Dino Risi</span>
+        <h2>Data di nascita: </h2>
+        <span th:text="${artist.dateOfBirth}">20/20/2000</span>
+
+        <div th:if="${!artist.directedMovies.isEmpty()}">
+            <span>Film Diretti: </span>
+            <ul>
+            <li th:each="movie : ${artist.directedMovies}">
                 <a th:href="@{'/movie/' + ${movie.id}}" th:text="${movie.title} + ' (' + ${movie.year} + '); '"></a>
-            </span>
-    </div>
-    <div th:unless="${!artist.directedMovies.isEmpty()}">
-        <h2>Non ci sono film diretti da quest'artista. </h2>
-    </div>
-    <div th:if="${!artist.starredMovies.isEmpty()}">
-        <span>Film Recitati: </span>
-        <span th:each="movie : ${artist.starredMovies}">
+            </li>
+            </ul>
+        </div>
+        <div th:unless="${!artist.directedMovies.isEmpty()}">
+            <h2>Non ci sono film diretti da quest'artista. </h2>
+        </div>
+        <div th:if="${!artist.starredMovies.isEmpty()}">
+            <span>Film Recitati: </span>
+            <ul>
+            <li th:each="movie : ${artist.starredMovies}">
                 <a th:href="@{'/movie/' + ${movie.id}}" th:text="${movie.title} + ' (' + ${movie.year} + '); '"></a>
-            </span>
+            </li>
+            </ul>
+        </div>
+        <div th:unless="${!artist.starredMovies.isEmpty()}">
+            <h2>Non ci sono film recitati da quest'artista. </h2>
+        </div>
     </div>
-    <div th:unless="${!artist.starredMovies.isEmpty()}">
-        <h2>Non ci sono film recitati da quest'artista. </h2>
-    </div>
+    <!-- immagine -->
     <h2>Foto profilo:</h2>
-    <div class="container">
-        <span><img class ="artist-image" width="30%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
+    <div class="image-section">
+        <span><img class="artist-image" width="50%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
     </div>
 </div>
 <div th:unless="${artist}">Non esiste</div>

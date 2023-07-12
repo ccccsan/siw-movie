@@ -20,21 +20,14 @@
     <a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
 </div>
 
-<div id ="flex-container">
+<div id="flex-container">
     <div class="movie-section">
         <h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
         <div th:unless="${movie}">Non esiste</div>
 
-        <!-- immagine --->
-        <h2>Locandina:</h2>
-        <div class="container">
-            <img class="movie-image" th:src="'data:image/jpeg;base64,' + ${image}"/>
-        </div>
-
-
         <!-- regista -->
+        <h2>Regista:</h2>
         <div th:if="${movie.director}">
-            <h2>Regista:</h2>
             <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span>
         </div>
         <div th:unless="${movie.director}">
@@ -42,8 +35,8 @@
         </div>
 
         <!-- attori -->
+        <h2>Cast:</h2>
         <div th:if="${!movie.actors.isEmpty()}">
-            <h2>Cast:</h2>
             <ul>
                 <li th:each="actor : ${movie.actors}">
                     <span th:text="${actor.name} + ' ' + ${actor.surname}"></span>
@@ -54,10 +47,17 @@
             <h2>Non ci sono attori per questo film</h2>
         </div>
     </div>
+
+    <div class="container">
+        <!-- immagine --->
+        <h2>Locandina:</h2>
+        <img class="movie-image" th:src="'data:image/jpeg;base64,' + ${image}"/>
+
+    </div>
     <div class="review-section">
         <!-- recensioni -->
+        <h2>Recensioni:</h2>
         <div th:if="${!movie.reviews.isEmpty()}">
-            <h2>Recensioni:</h2>
             <ul>
                 <li th:each="review: ${movie.reviews}">
                     <div>Titolo: <span th:text="${review.title}"></span></div>
@@ -71,6 +71,11 @@
         </div>
     </div>
 </div>
-</body>
 
+</body>
+<footer>
+    <div>
+        <a href="javascript:void(0);" onclick="history.back();">Torna indietro</a>
+    </div>
+</footer>
 </html>
