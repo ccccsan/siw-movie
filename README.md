@@ -39,4 +39,18 @@ UC4: Inserimento di una recensione da parte di un utente registrato
 	4. Il sistema verifica i dati inseriti e li associa al film nel database
 	5. Il sistema mostra un messaggio di conferma dell'avvenuto inserimento della recensione
 
-UC5: 
+UC5: Consultazione di informazioni dei film nel database da parte di un utente generico
+
+    1. L'utente generico accede all'interfaccia generale del sistema
+    2. L'utente seleziona l'opzione per la visualizzazione dei dettagli di un film
+    3. Il sistema mostra l'elenco dei film presenti nel database
+    4. L'utente seleziona il film di cui vuole visualizzare i dettagli
+    5. Il sistema mostra le informazioni del film (titolo, anno di uscita, regista, attori, recensioni)
+
+UC6: Consultazione di informazioni degli artisti nel database da parte di un utente generico
+
+    1. L'utente generico accede all'interfaccia generale del sistema
+    2. L'utente seleziona l'opzione per la visualizzazione dei dettagli di un artista
+    3. Il sistema mostra l'elenco degli artisti presenti nel database
+    4. L'utente seleziona l'artista di cui vuole visualizzare i dettagli
+    5. Il sistema mostra le informazioni dell'artista (nome, cognome, data di nascita, data di morte, film in cui ha recitato)
