@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Film</title>
 	<link rel="stylesheet" href="/css/stile.css" />
@@ -23,7 +22,6 @@
 	<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
 	<ul>
 		<li th:each="movie : ${movies}">
-			<span><img width="30%" th:src="'data:image/jpeg;base64,' + ${movie.photo}"/></span>
 			<a th:href="@{'/movie' + '/' + ${movie.id}}"
 				th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
 		</li>
