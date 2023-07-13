@@ -3,7 +3,7 @@
 
 <head>
 	<title>Scelta attori</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link rel="stylesheet" href="/css/formUpdate.css" />
 </head>
 
 <body>
@@ -16,7 +16,7 @@
 			<a href="/login">Login</a>
 		</div>
 	</header>
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 	<h1 th:text="'Attori del film ' + ${movie.title}"></h1>
 	<div th:if="${movie.actors.isEmpty()}">Non ci sono attori per questo film</div>
 	<ul>

@@ -3,7 +3,7 @@
 
 <head>
 	<title>Elenco Artisti</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link rel="stylesheet" href="/css/artists.css" />
 </head>
 
 <body>
@@ -20,12 +20,12 @@
 	<div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 	<h1>Artisti presenti nel database</h1>
 	<div th:if="${artists==null || artists.isEmpty()}">Non ci sono artisti nel sistema</div>
-	<ul>
-		<li th:each="artist : ${artists}">
+	<div>
+		<div th:each="artist : ${artists}">
 			<a th:href="@{'/artist' + '/' + ${artist.id}}"
 				th:text="${artist.name} + ' ' + ${artist.surname}">Dino Risi</a>
-		</li>
-	</ul>
+		</div>
+	</div>
 </body>
 
 </html>

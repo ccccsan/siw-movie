@@ -50,33 +50,9 @@
         </div>
     </div>
 
-    <!--    <div class="container">-->
-    <!--        &lt;!&ndash; immagine -&ndash;&gt;-->
-    <!--        <h2>Locandina:</h2>-->
-    <!--        <img class="movie-image" th:src="@{'data:image;base64,' + ${movie.photo}}"/>-->
-
-    <!--    </div>-->
-
-    <div class="slideshow-container">
-        <!-- immagine --->
-        <h2>Scene nel film:</h2>
-        <div th:if="${!movie.scenes.isEmpty()}">
-            <div class="slideshow-wrapper">
-                <div class="slideshow-item">
-                    <div class="image-overlay" th:each="scene : ${movie.scenes}">
-                        <img class="mySlides active" th:src="@{'data:image;base64,' + ${scene}}"/>
-                    </div>
-                </div>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div>
-        </div>
-        <div th:unless="${!movie.scenes.isEmpty()}">
-            <h2>Non ci sono scene per questo film</h2>
-        </div>
-    </div>
+    <!-- recensioni -->
     <div class="review-section">
-        <!-- recensioni -->
+
         <h2>Recensioni:</h2>
         <div th:if="${!movie.reviews.isEmpty()}">
             <ul>
@@ -91,7 +67,27 @@
             <h2>Non ci sono recensioni per questo film</h2>
         </div>
     </div>
+
+    <h2>Scene:</h2>
+    <div class="slideshow-container">
+        <!-- scene --->
+        <div th:if="${!movie.scenes.isEmpty()}">
+            <div class="slideshow-wrapper">
+                <div class="slideshow-item">
+                    <div class="image-overlay" th:each="scene : ${movie.scenes}">
+                        <img class="mySlides active" th:src="@{'data:image;base64,' + ${scene}}"/>
+                    </div>
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+    </div>
+    <div th:unless="${!movie.scenes.isEmpty()}">
+        <h2>Non ci sono scene per questo film</h2>
+    </div>
 </div>
+
 
 <script>
     const slideshowWrapper = document.querySelector('.slideshow-wrapper');
