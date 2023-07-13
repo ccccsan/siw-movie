@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -100,7 +101,6 @@ public class MovieController {
 			return "admin/formNewMovie.html"; 
 		}
 	}
-	
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
@@ -114,6 +114,17 @@ public class MovieController {
 		//model.addAttribute("movies", this.movieService.getAllMovies());
 		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
 		return "movies.html";
+	}
+
+	@PostMapping("/admin/addScenes/{id}")
+	public String addScenes(@PathVariable("id") Long id, Model model,
+							@RequestParam("image") MultipartFile multipartFile) throws IOException {
+		Movie movie = this.movieService.getMovieById(id);
+		String movieImg = Base64.getEncoder().encodeToString(multipartFile.getBytes());
+		movie.getScenes().add(movieImg);
+		this.movieService.saveMovie(movie);
+		model.addAttribute("movie", movie);
+		return "admin/formUpdateMovie.html";
 	}
 	
 	@GetMapping("/formSearchMovies")
@@ -198,7 +209,7 @@ public class MovieController {
 		return "admin/manageMovies.html";
 	}
 
-	@GetMapping(value="/admin/updateMovie/{movieId}")
+	@PostMapping(value="/admin/updateMovie/{movieId}")
 	public String updateMovie(@ModelAttribute("movie") Movie newMovie, @PathVariable("movieId")Long movieId, Model model) {
 		Movie oldMovie = this.movieService.getMovieById(movieId);
 		Movie movie = this.movieService.updateMovie(oldMovie, newMovie);

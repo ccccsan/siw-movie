@@ -26,7 +26,7 @@ public class Artist {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfDeath;
 
-	@Column (length = 1000000)
+	@Column (length = 10000000)
 	private String image;
 
 	public String getImage() {

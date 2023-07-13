@@ -29,8 +29,7 @@
         <div class="card-deck" th:each="movie : ${movies}">
             <div class="card">
                 <img class="card-img-top" th:src="@{'data:image;base64,' + ${movie.photo}}"
-                     max-width="50%" max-height="50%"
-                     width="80" height="150" alt="Card image cap">
+                      alt="Card image cap">
                 <div class="card-body">
                     <a class="card-title" th:href="@{'/movie' + '/' + ${movie.id}}"
                        th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>

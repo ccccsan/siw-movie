@@ -23,8 +23,11 @@ public class Movie {
     @Max(2023)
 	private Integer year;
 
-	@Column (length = 1000000)
+	@Column (length = 10000000)
 	private String photo;
+
+	@Column	(length = 10000000)
+	private ArrayList<String> scenes;
 
 	@ManyToOne
 	private Artist director;
@@ -35,14 +38,19 @@ public class Movie {
 	@OneToMany(mappedBy="movie", fetch = FetchType.EAGER)
 	private List<Review> reviews;
 
-//	@OneToOne
-//	private Image image;
-
 	public Movie() {
 		this.actors = new LinkedList<>();
 		this.reviews = new ArrayList<>();
+		this.scenes = new ArrayList<>();
 	}
 
+	public ArrayList<String> getScenes() {
+		return scenes;
+	}
+
+	public void setScenes(ArrayList<String> scenes) {
+		this.scenes = scenes;
+	}
 
 	public String getPhoto() {
 		return photo;
