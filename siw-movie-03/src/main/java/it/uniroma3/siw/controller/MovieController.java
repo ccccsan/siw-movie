@@ -61,11 +61,6 @@ public class MovieController {
 	@GetMapping(value="/admin/adminMovie/{id}")
 	public String adminMovie(@PathVariable("id") Long id, Model model) {
 		Movie movie = this.movieService.getMovieById(id);
-		byte[] photo = movie.getPhoto();
-		if(photo != null) {
-			String image = java.util.Base64.getEncoder().encodeToString(photo);
-			model.addAttribute("image", image);
-		}
 		model.addAttribute("movie", movie);
 		return "admin/adminMovie.html";
 	}
@@ -110,11 +105,6 @@ public class MovieController {
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		Movie movie = this.movieService.getMovieById(id);
-		byte[] photo = movie.getPhoto();
-		if(photo != null) {
-			String image = java.util.Base64.getEncoder().encodeToString(photo);
-			model.addAttribute("image", image);
-		}
 		model.addAttribute("movie", movie);
 		return "movie.html";
 	}
@@ -181,11 +171,6 @@ public class MovieController {
 	@GetMapping(value="/user/movieUser/{id}")
 	public String getUserMovie(@PathVariable("id") Long id, Model model) {
 		Movie movie = this.movieService.getMovieById(id);
-//		byte[] photo = movie.getImage();
-//		if(photo != null) {
-//			String image = java.util.Base64.getEncoder().encodeToString(photo);
-//			model.addAttribute("image", image);
-//		}
 		model.addAttribute("movie", movie);
 		return "user/movieUser.html";
 	}

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Base64;
 
 @Controller
 public class ArtistController {
@@ -36,8 +37,8 @@ public class ArtistController {
 	public String newArtist(@ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model,
 							@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		if (!this.artistService.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
-			byte[] photoBytes = multipartFile.getBytes();
-			artist.setImage(photoBytes);
+			String artistImg = Base64.getEncoder().encodeToString(multipartFile.getBytes());;
+			artist.setImage(artistImg);
 			this.artistService.saveArtist(artist);
 			model.addAttribute("artist", artist);
 			return "artist.html";
@@ -50,11 +51,6 @@ public class ArtistController {
 	@GetMapping("/artist/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
 		Artist artist = this.artistService.getActorById(id);
-		byte[] photo = artist.getImage();
-		if(photo != null) {
-			String image = java.util.Base64.getEncoder().encodeToString(photo);
-			model.addAttribute("image", image);
-		}
 		model.addAttribute("artist", artist);
 		return "artist.html";
 	}

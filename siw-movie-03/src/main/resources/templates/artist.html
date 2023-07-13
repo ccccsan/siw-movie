@@ -52,7 +52,7 @@
     <!-- immagine -->
     <h2>Foto profilo:</h2>
     <div class="image-section">
-        <span><img class="artist-image" width="50%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
+        <span><img class="artist-image" width="50%" th:src="@{'data:image;base64,' + ${artist.image}}"/></span>
     </div>
 </div>
 <div th:unless="${artist}">Non esiste</div>

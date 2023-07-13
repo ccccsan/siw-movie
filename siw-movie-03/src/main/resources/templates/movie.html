@@ -51,7 +51,7 @@
     <div class="container">
         <!-- immagine --->
         <h2>Locandina:</h2>
-        <img class="movie-image" th:src="'data:image/jpeg;base64,' + ${image}"/>
+        <img class="movie-image" th:src="@{'data:image;base64,' + ${movie.photo}}"/>
 
     </div>
     <div class="review-section">

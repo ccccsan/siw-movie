@@ -22,8 +22,9 @@ public class Movie {
     @Min(1900)
     @Max(2023)
 	private Integer year;
-    
-	private byte[] photo;
+
+	@Column (length = 1000000)
+	private String photo;
 
 	@ManyToOne
 	private Artist director;
@@ -43,11 +44,11 @@ public class Movie {
 	}
 
 
-	public byte[] getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(byte[] photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 

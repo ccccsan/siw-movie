@@ -45,7 +45,7 @@
 	<!-- immagini --->
 	<div>
 		<h2>Locandina: </h2>
-		<span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
+		<span><img width="30%" th:src="@{'data:image;base64,' + ${movie.photo}}"/></span>
 	</div>
 
 	<!-- recensioni -->

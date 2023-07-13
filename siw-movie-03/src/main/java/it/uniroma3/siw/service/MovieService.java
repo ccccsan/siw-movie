@@ -2,6 +2,7 @@ package it.uniroma3.siw.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class MovieService {
 
 	@Transactional
 	public void createNewMovie(@Valid Movie movie, MultipartFile image) throws IOException {
-		byte[] movieImg = image.getBytes();
+		String movieImg = Base64.getEncoder().encodeToString(image.getBytes());;
 		movie.setPhoto(movieImg);
 		this.movieRepository.save(movie);
 	}
