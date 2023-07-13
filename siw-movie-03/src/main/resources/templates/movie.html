@@ -20,10 +20,12 @@
     <a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
 </div>
 
+
+<h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
+<div th:unless="${movie}">Non esiste</div>
+
 <div id="flex-container">
     <div class="movie-section">
-        <h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
-        <div th:unless="${movie}">Non esiste</div>
 
         <!-- regista -->
         <h2>Regista:</h2>
@@ -48,11 +50,30 @@
         </div>
     </div>
 
-    <div class="container">
+    <!--    <div class="container">-->
+    <!--        &lt;!&ndash; immagine -&ndash;&gt;-->
+    <!--        <h2>Locandina:</h2>-->
+    <!--        <img class="movie-image" th:src="@{'data:image;base64,' + ${movie.photo}}"/>-->
+
+    <!--    </div>-->
+
+    <div class="slideshow-container">
         <!-- immagine --->
         <h2>Scene nel film:</h2>
-        <img class="movie-image" th:src="@{'data:image;base64,' + ${movie.photo}}"/>
-
+        <div th:if="${!movie.scenes.isEmpty()}">
+            <div class="slideshow-wrapper">
+                <div class="slideshow-item">
+                    <div class="image-overlay" th:each="scene : ${movie.scenes}">
+                        <img class="mySlides active" th:src="@{'data:image;base64,' + ${scene}}"/>
+                    </div>
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+        <div th:unless="${!movie.scenes.isEmpty()}">
+            <h2>Non ci sono scene per questo film</h2>
+        </div>
     </div>
     <div class="review-section">
         <!-- recensioni -->
@@ -71,6 +92,67 @@
         </div>
     </div>
 </div>
+
+<script>
+    const slideshowWrapper = document.querySelector('.slideshow-wrapper');
+    const slides = slideshowWrapper.getElementsByClassName('slideshow-item');
+    const filmTitles = ['V per Vendemmia', 'Non e un paese per giovani', 'Barbie']; // Aggiungi i titoli dei tuoi film qui
+    let currentSlideIndex = 0;
+
+    function showNextSlide() {
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        updateSlide();
+    }
+
+    function showPreviousSlide() {
+        currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+        updateSlide();
+    }
+
+    function updateSlide() {
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+        slides[currentSlideIndex].style.display = 'block';
+    }
+
+    document.querySelector('.prev').addEventListener('click', showPreviousSlide);
+    document.querySelector('.next').addEventListener('click', showNextSlide);
+
+    // Aggiunta del titolo del film dinamico
+    const filmTitleElements = slideshowWrapper.getElementsByClassName('film-title');
+    for (let i = 0; i < filmTitleElements.length; i++) {
+        filmTitleElements[i].textContent = filmTitles[i];
+    }
+
+    updateSlide();
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides((slideIndex += n));
+    }
+
+    function currentSlide(n) {
+        showSlides((slideIndex = n));
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName('mySlides');
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+        slides[slideIndex - 1].style.display = 'block';
+    }
+</script>
 
 </body>
 <footer>

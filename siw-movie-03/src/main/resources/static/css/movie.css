@@ -8,10 +8,10 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-color: rgba(0, 0, 0, 0.7); /* Trasparenza di sfondo */
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
-    /*justify-content: center;*/
-    /*align-items: center;*/
+    justify-content: center;
+    align-items: center;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -57,6 +57,9 @@ header,footer a {
 }
 
 h1 {
+    color: lawngreen;
+    text-shadow: white;
+    text-align: center;
     font-size: 30px;
     font-weight: bold;
 }
@@ -106,6 +109,58 @@ footer {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.8);
     text-align: left;
+}
+
+/*=======================================
+  =================SCENE=================
+  =======================================*/
+
+.slideshow-container {
+    position: relative;
+    width: 650px;
+    height: 500px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.slideshow-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.slideshow-image {
+    flex: 0 0 100%;
+    object-fit: contain;
+    height: 100%;
+}
+
+.mySlides {
+    height: 500px;
+    width: 650px;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 36px;
+    font-weight: bold;
+    padding: 10px;
+    color: whitesmoke;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
 }
 
 /*.review-box {*/
