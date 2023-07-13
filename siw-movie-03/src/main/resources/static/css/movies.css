@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@1,600&display=swap');
+
+body {
+    font-family: 'Ysabeau Office';
+    color:dimgrey;
+    background-image: url("/images/movies.jpeg");
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.7); /* Trasparenza di sfondo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*align-items: center;*/
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/*body > div {*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.8); /* Trasparenza di sfondo per l'header */
+    padding: 10px;
+    justify-content: end;
+    text-align: right;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+span {
+    margin-top: 10px;
+}
+
+header.a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.logo {
+    text-align: center;
+
+}
+
+.logo img {
+    width: 50%;
+}
+
+.general {
+    width: 100%;
+}
+
+.card-deck {
+    width: 30%;
+    padding: 25px;
+}
+
+.containitor {
+    display: flex;
+    justify-content:center;
+}
+
+.card-title.a {
+    font-size: 15px;
+    color: dodgerblue;
+}
