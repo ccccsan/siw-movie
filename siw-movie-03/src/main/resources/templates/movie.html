@@ -68,9 +68,10 @@
         </div>
     </div>
 
+    <!-- scene --->
     <h2>Scene:</h2>
     <div class="slideshow-container">
-        <!-- scene --->
+
         <div th:if="${!movie.scenes.isEmpty()}">
             <div class="slideshow-wrapper">
                 <div class="slideshow-item">
@@ -83,9 +84,7 @@
             </div>
         </div>
     </div>
-    <div th:unless="${!movie.scenes.isEmpty()}">
-        <h2>Non ci sono scene per questo film</h2>
-    </div>
+
 </div>
 
 

@@ -2,72 +2,163 @@
 <html>
 
 <head>
-  <title>Film</title>
-  <link rel="stylesheet" href="/css/stile.css"/>
+    <title>Film</title>
+    <link rel="stylesheet" href="/css/movieUser.css"/>
 </head>
 
 <body>
 <header>
-  <div th:if="${#request.userPrincipal}">
-    <span th:text="${#request.userPrincipal.principal.username}"></span>
-    <a href="/logout">Logout</a>
-  </div>
-  <div th:unless="${#request.userPrincipal}">
-    <a href="/login">Login</a>
-  </div>
+    <div th:if="${#request.userPrincipal}">
+        <span th:text="${#request.userPrincipal.principal.username}"></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <div th:unless="${#request.userPrincipal}">
+        <a href="/login">Login</a>
+    </div>
 </header>
 
-<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+<div class="logo">
+    <a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
+
+</div>
 <h1 th:if="${movie}" th:text="${movie.title + ' (' + movie.year + ')'}">Dettagli Film</h1>
-<ul>
-  <div th:unless="${movie}">Non esiste</div>
 
-  <!-- regista -->
-  <div th:if="${movie.director}">
-    <h2>Regista:</h2>
-    <span th:text="${movie.director.name}"></span>
-  </div>
-  <div th:unless="${movie.director}">
-    <h2>Nessun regista per questo film</h2>
-  </div>
+<div th:unless="${movie}">Non esiste</div>
 
-  <!-- attori -->
-  <div th:if="${!movie.actors.isEmpty()}">
-    <h2>Attori:</h2>
-    <li th:each="actor : ${movie.actors}">
-      <span th:text="${actor.name}"> </span>
-    </li>
-  </div>
-  <div th:unless="${!movie.actors.isEmpty()}">
-    <h2>Non ci sono attori per questo film</h2>
-  </div>
+<div id="flex-container">
+    <div class="movie-section">
 
-  <!-- immagini --->
-  <div>
-    <h2>Locandina: </h2>
-    <span><img width="30%" th:src="'data:image/jpeg;base64,' + ${image}"/></span>
-  </div>
+        <!-- regista -->
+        <div th:if="${movie.director}">
+            <h2>Regista:</h2>
+            <span th:text="${movie.director.name}"></span>
+        </div>
+        <div th:unless="${movie.director}">
+            <h2>Nessun regista per questo film</h2>
+        </div>
 
-  <!-- recensioni -->
-  <div th:if="${!movie.reviews.isEmpty()}">
-    <h2>Recensioni:</h2>
-    <li th:each="review: ${movie.reviews}">
-      <span> Titolo: </span>
-      <span th:text="${review.title}"></span>
-      <span> Voto: </span>
-      <span th:text="${review.rate}"></span>
-      <span> Recensione: </span>
-      <span th:text="${review.comment}"></span>
-    </li>
-  </div>
-  <div th:unless="${!movie.reviews.isEmpty()}">
-    <h2>Non ci recensioni per questo film</h2>
-  </div>
-      <div>
-          <a th:href="@{'/user/addReview/' + ${movie.id}}">Aggiungi Recensione</a>
-      </div>
-</ul>
+        <!-- attori -->
+        <div th:if="${!movie.actors.isEmpty()}">
+            <h2>Attori:</h2>
+            <ul>
+                <li th:each="actor : ${movie.actors}">
+                    <span th:text="${actor.name}"> </span>
+                </li>
+            </ul>
+        </div>
+        <div th:unless="${!movie.actors.isEmpty()}">
+            <h2>Non ci sono attori per questo film</h2>
+        </div>
+    </div>
+
+    <!-- recensioni -->
+    <div class="review-section">
+        <div th:if="${!movie.reviews.isEmpty()}">
+            <h2>Recensioni:</h2>
+            <ul>
+                <li th:each="review: ${movie.reviews}">
+                    <span> Titolo: </span>
+                    <span th:text="${review.title}"></span>
+                    <span> Voto: </span>
+                    <span th:text="${review.rate}"></span>
+                    <span> Recensione: </span>
+                    <span th:text="${review.comment}"></span>
+                </li>
+            </ul>
+        </div>
+        <div th:unless="${!movie.reviews.isEmpty()}">
+            <h2>Non ci recensioni per questo film</h2>
+        </div>
+        <div>
+            <a th:href="@{'/user/addReview/' + ${movie.id}}">Aggiungi Recensione</a>
+        </div>
+    </div>
+
+    <!-- scene --->
+
+    <h2>Scene:</h2>
+    <div class="slideshow-container">
+        <div th:if="${!movie.scenes.isEmpty()}">
+            <div class="slideshow-wrapper">
+                <div class="slideshow-item">
+                    <div class="image-overlay" th:each="scene : ${movie.scenes}">
+                        <img class="mySlides active" th:src="@{'data:image;base64,' + ${scene}}"/>
+                    </div>
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    const slideshowWrapper = document.querySelector('.slideshow-wrapper');
+    const slides = slideshowWrapper.getElementsByClassName('slideshow-item');
+    const filmTitles = ['V per Vendemmia', 'Non e un paese per giovani', 'Barbie']; // Aggiungi i titoli dei tuoi film qui
+    let currentSlideIndex = 0;
+
+    function showNextSlide() {
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        updateSlide();
+    }
+
+    function showPreviousSlide() {
+        currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+        updateSlide();
+    }
+
+    function updateSlide() {
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+        slides[currentSlideIndex].style.display = 'block';
+    }
+
+    document.querySelector('.prev').addEventListener('click', showPreviousSlide);
+    document.querySelector('.next').addEventListener('click', showNextSlide);
+
+    // Aggiunta del titolo del film dinamico
+    const filmTitleElements = slideshowWrapper.getElementsByClassName('film-title');
+    for (let i = 0; i < filmTitleElements.length; i++) {
+        filmTitleElements[i].textContent = filmTitles[i];
+    }
+
+    updateSlide();
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides((slideIndex += n));
+    }
+
+    function currentSlide(n) {
+        showSlides((slideIndex = n));
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName('mySlides');
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+        slides[slideIndex - 1].style.display = 'block';
+    }
+</script>
 
 </body>
-
+<footer>
+    <div>
+        <a href="javascript:void(0);" onclick="history.back();">Torna indietro</a>
+    </div>
+</footer>
 </html>

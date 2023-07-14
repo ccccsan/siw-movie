@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Elenco Film</title>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link th:href="@{/css/movies.css}" rel="stylesheet">
@@ -26,18 +25,47 @@
     <h1>Film presenti nel database</h1>
     <div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
     <div class="containitor">
-        <div class="card-deck" th:each="movie : ${movies}">
-            <div class="card">
-                <img class="card-img-top" th:src="@{'data:image;base64,' + ${movie.photo}}"
-                      alt="Card image cap">
-                <div class="card-body">
-                    <a class="card-title" th:href="@{'/movie' + '/' + ${movie.id}}"
-                       th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
-                </div>
+        <div class="card-deck">
+            <div class="card" th:each="movie : ${movies}">
+                <a th:href="@{'/movie' + '/' + ${movie.id}}">
+                    <img class="card-img-top" th:src="@{'data:image;base64,' + ${movie.photo}}"
+                         alt="Card image cap">
+                </a>
             </div>
         </div>
     </div>
 </div>
+
+<!--<div class="general">-->
+<!--    <h1>Film presenti nel database</h1>-->
+<!--    <div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>-->
+<!--    <div class="containitor">-->
+<!--        <div class="card-deck" th:each="movie : ${movies}">-->
+<!--            <div class="card">-->
+<!--                <img class="card-img-top" th:src="@{'data:image;base64,' + ${movie.photo}}"-->
+<!--                     alt="Card image cap">-->
+<!--                <div class="card-body">-->
+<!--                    <a class="card-title" th:href="@{'/movie' + '/' + ${movie.id}}"-->
+<!--                       th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="general">-->
+<!--    <h1>Film presenti nel database</h1>-->
+<!--    <div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>-->
+<!--    <div class="containitor">-->
+<!--        <div class="card-columns">-->
+<!--            <div class="card" th:each="movie : ${movies}">-->
+<!--                <a th:href="@{'/movie' + '/' + ${movie.id}}">-->
+<!--                <img class="card-img-top" th:src="@{'data:image;base64,' + ${movie.photo}}"-->
+<!--                     alt="Card image cap"></a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 </body>
