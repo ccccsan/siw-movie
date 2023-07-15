@@ -11,10 +11,13 @@
 <header>
   <div th:if="${#request.userPrincipal}">
     <span th:text="${#request.userPrincipal.principal.username}"></span>
-    <a href="/logout">Logout</a>
+    <a href="/logout">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+    </a>
   </div>
   <div th:unless="${#request.userPrincipal}">
-    <a href="/login">Login</a>
+    <a href="/login"><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+    </a>
   </div>
 </header>
 
@@ -37,5 +40,11 @@
 </div>
 
 </body>
-
+<footer>
+  <div class="footer_div">
+    <a href="/">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Torna indietro</button>
+    </a>
+  </div>
+</footer>
 </html>

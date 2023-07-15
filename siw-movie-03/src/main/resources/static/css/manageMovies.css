@@ -31,27 +31,27 @@ header {
     left: 0;
     right: 0;
     background-color: rgba(255, 255, 255, 0.8); /* Trasparenza di sfondo per l'header */
-    padding: 10px;
+    padding: 5px;
     justify-content: end;
     text-align: right;
 }
 
-a { 
-	text-decoration: none; 
+a {
+    text-decoration: none;
     color: darkgrey;
 }
 
-a:hover { 
-	text-decoration: underline; 
+a:hover {
+    text-decoration: underline;
 }
 
 label {
-	width: 8em;
-	display: inline-block;
+    width: 8em;
+    display: inline-block;
 }
 
-header a { 
-	text-decoration: none; 
+header a {
+    text-decoration: none;
     color: white;
     font-size: 0.6em;
 }

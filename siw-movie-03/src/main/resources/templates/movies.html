@@ -11,10 +11,13 @@
 <header>
     <div th:if="${#request.userPrincipal}">
         <span th:text="${#request.userPrincipal.principal.username}"></span>
-        <a href="/logout">Logout</a>
+        <a href="/logout">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+        </a>
     </div>
     <div th:unless="${#request.userPrincipal}">
-        <a href="/login">Login</a>
+        <a href="/login"><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+        </a>
     </div>
 </header>
 
@@ -36,38 +39,13 @@
     </div>
 </div>
 
-<!--<div class="general">-->
-<!--    <h1>Film presenti nel database</h1>-->
-<!--    <div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>-->
-<!--    <div class="containitor">-->
-<!--        <div class="card-deck" th:each="movie : ${movies}">-->
-<!--            <div class="card">-->
-<!--                <img class="card-img-top" th:src="@{'data:image;base64,' + ${movie.photo}}"-->
-<!--                     alt="Card image cap">-->
-<!--                <div class="card-body">-->
-<!--                    <a class="card-title" th:href="@{'/movie' + '/' + ${movie.id}}"-->
-<!--                       th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="general">-->
-<!--    <h1>Film presenti nel database</h1>-->
-<!--    <div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>-->
-<!--    <div class="containitor">-->
-<!--        <div class="card-columns">-->
-<!--            <div class="card" th:each="movie : ${movies}">-->
-<!--                <a th:href="@{'/movie' + '/' + ${movie.id}}">-->
-<!--                <img class="card-img-top" th:src="@{'data:image;base64,' + ${movie.photo}}"-->
-<!--                     alt="Card image cap"></a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 
 </body>
-
+<footer>
+    <div class="footer_div">
+        <a href="/">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Torna indietro</button>
+        </a>
+    </div>
+</footer>
 </html>

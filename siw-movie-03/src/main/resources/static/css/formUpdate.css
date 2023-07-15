@@ -15,7 +15,6 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    font-size: 1.5em;
 }
 
 body > div {
@@ -28,7 +27,7 @@ header {
     left: 0;
     right: 0;
     background-color: rgba(255, 255, 255, 0.8); /* Trasparenza di sfondo per l'header */
-    padding: 10px;
+    padding: 3px;
     justify-content: end;
     text-align: right;
 }
@@ -83,12 +82,25 @@ label {
 }
 
 button {
-    align-items: end;
+    justify-content: center;
 }
 
 .container {
-    /*display: flex;*/
     justify-content: center;
-    align-items: center;
-    width: 50%;
+    width: 100%;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+    justify-content: center;
+}
+
+.footer_div {
+    display: flex;
+    justify-content: center;
 }

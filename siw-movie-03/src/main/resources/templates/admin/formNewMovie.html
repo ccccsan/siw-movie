@@ -5,21 +5,26 @@
 	<title>
 		New Movie
 	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/formNewEntity.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+<header>
+	<div th:if="${#request.userPrincipal}">
+		<span th:text="${#request.userPrincipal.principal.username}"></span>
+		<a href="/logout">
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+		</a>
+	</div>
+	<div th:unless="${#request.userPrincipal}">
+		<a href="/login"><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+		</a>
+	</div>
+</header>
+	<div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
 	<h1>Aggiungi un film</h1>
 	<form th:action="@{/admin/movie}" method="POST" th:object="${movie}" enctype="multipart/form-data">
 		<div th:if="${#fields.hasGlobalErrors()}">
@@ -46,7 +51,7 @@
 		<div><img width="30%" id = "thumbnail" alt = "Locandina preview" /></div>
 
 		<div>
-			<span><button type="submit">Conferma</button></span>
+			<span><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Conferma</button></span>
 		</div>
 		<script type = "text/javascript">
 			$(document).ready(function() {

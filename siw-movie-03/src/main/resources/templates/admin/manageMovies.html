@@ -3,19 +3,24 @@
 
 <head>
 	<title>Film</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/manageMovies.css" />
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<header>
+	<div th:if="${#request.userPrincipal}">
+		<span th:text="${#request.userPrincipal.principal.username}"></span>
+		<a href="/logout">
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+		</a>
+	</div>
+	<div th:unless="${#request.userPrincipal}">
+		<a href="/login"><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+		</a>
+	</div>
+</header>
 
 	<div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
 	<h1>Film</h1>
@@ -32,9 +37,14 @@
 
 		</li>
 	</ul>
-	<div>
-		<a href="javascript:void(0);" onclick="history.back();">Torna indietro</a>
-	</div>
 </body>
+
+<footer>
+	<div class="footer_div">
+		<a href="/admin/indexMovie">
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Torna indietro</button>
+		</a>
+	</div>
+</footer>
 
 </html>

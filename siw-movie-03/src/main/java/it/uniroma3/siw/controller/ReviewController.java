@@ -54,7 +54,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/admin/deleteReview/{reviewId}/{movieId}")
+    @GetMapping("/deleteReview/{reviewId}/{movieId}")
     public String deleteReview(@PathVariable("reviewId")Long reviewId, @PathVariable("movieId") Long movieId,
                                Model model) {
         this.reviewService.deleteReview(reviewId);
