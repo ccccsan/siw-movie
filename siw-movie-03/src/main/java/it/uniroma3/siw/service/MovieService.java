@@ -99,6 +99,11 @@ public class MovieService {
 		return actorsToAdd;
 	}
 
+	public List<Review> findAllReviewInMovie(Long movieId) {
+		Movie movie = this.getMovieById(movieId);
+		return movie.getReviews();
+	}
+
 	@Transactional
 	public void deleteMovie(Long movieId) {
 		Movie movie = this.getMovieById(movieId);

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recensione Cancellato</title>
+  <link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+<header>
+  <div th:if="${#request.userPrincipal}">
+    <span th:text="${#request.userPrincipal.principal.username}"></span>
+    <a href="/logout">Logout</a>
+  </div>
+  <div th:unless="${#request.userPrincipal}">
+    <a href="/login">Login</a>
+  </div>
+</header>
+
+<div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+
+<h1 th:text="'Hai cancellato una nuova recensione per il film ' + ${movie.title}"></h1>
+<!--	<div>
+		<h2>Titolo: </h3>
+		<h3 th:text="${review.title}"></h3>
+	</div>
+	<div>
+		<h2>Valutazione: </h2>
+		<h3 th:text="${review.rate}"></span>
+	</div>
+	<div>
+		<h2>Commento: </h2>
+		<h3 th:text="${review.comment}"></h3>
+	</div>
+-->
+<div>
+  <a th:href="@{'/movie'}">Torna all'elenco dei film</a>
+</div>
+</body>
+</html>

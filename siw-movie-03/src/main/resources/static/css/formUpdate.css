@@ -85,6 +85,34 @@ button {
     justify-content: center;
 }
 
+#flex-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.actor-section {
+    display:block;
+    justify-content: left;
+    max-width : 50%;
+    padding : 10px;
+}
+
+.scenes-section {
+    display:block;
+    justify-content: right;
+    max-width : 50%;
+    padding: 10px;
+}
+
+.review-section {
+    display:block;
+    justify-content: right;
+    max-width : 50%;
+    padding: 10px;
+}
+
 .container {
     justify-content: center;
     width: 100%;

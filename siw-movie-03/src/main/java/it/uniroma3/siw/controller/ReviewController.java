@@ -38,30 +38,29 @@ public class ReviewController {
     @Autowired
     private CredentialsService credentialsService;
 
-    @PostMapping("/user/review/{movieId}")
-    public String newReview(@Valid @ModelAttribute Review review, BindingResult bindingResult, 
-    		 @PathVariable("movieId") Long movieId, Model model) {
-        this.reviewValidator.validate(review, bindingResult);
-        Review newReview = this.reviewService.newReview(review, movieId);
-        if (!bindingResult.hasErrors()) {
-        	Movie movie = this.movieService.addReviewToMovie(movieId, newReview.getId());
-            model.addAttribute(newReview);
-        	model.addAttribute(movie);
-            return "user/reviewSuccessful.html";
+
+
+    @GetMapping("/admin/reviewsInMovie/{movieId}")
+    public String reviewsInMovie(@PathVariable("id")Long id, Model model) {
+        Movie movie = movieService.getMovieById(id);
+        List<Review> reviews = this.reviewService.findAllByMovieId(movie.getId());
+        if (!reviews.isEmpty()) {
+            model.addAttribute("reviews", reviews);
+            model.addAttribute("movie", movie);
+            return "admin/manageReviews.html";
         } else {
-            model.addAttribute("movie", this.movieService.getMovieById(movieId));
-            return "user/formNewReview.html";
+            return "admin/formUpdateMovie.html";
         }
     }
 
-    @GetMapping("/deleteReview/{reviewId}/{movieId}")
+    @GetMapping(value="/admin/deleteReview/{reviewId}/{movieId}")
     public String deleteReview(@PathVariable("reviewId")Long reviewId, @PathVariable("movieId") Long movieId,
                                Model model) {
         this.reviewService.deleteReview(reviewId);
         Movie movie = this.movieService.getMovieById(movieId);
         model.addAttribute("movie", movie );
         model.addAttribute("reviews", movie.getReviews());
-        return "admin/manageReviews.html";
+        return "admin/reviewToDelete.html";
     }
 
     @GetMapping("/reviews/reviewsOrdered/{id}")

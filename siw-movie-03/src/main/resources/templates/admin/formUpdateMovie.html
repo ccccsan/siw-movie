@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        SiwMovie - New Movie
+        SiwMovie - Update Movie
     </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -29,39 +29,42 @@
     <a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
 </div>
 
-<div class="container">
-    <div th:if="${movie}">
-        <h1 th:text="'Aggiorna film'+ ' *'+ ${movie.title} + '*'"></h1>
-        <form th:action="@{'/admin/updateMovie/' + ${movie.id}}" method="POST" th:object="${movie}">
-            <div>
-                <label>Titolo: </label>
-                <input type="text" th:field="${movie.title}"/>
-            </div>
-            <div>
-                <label>Anno di uscita:</label>
-                <input type="number" th:field="${movie.year}"/>
-            </div>
-            <button class="btn btn-outline-primary" type="submit">Conferma</button>
-        </form>
-        <div th:if="${movie.director}">
-            <label>Regista: </label><span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Steven
+<div id="flex-container">
+    <div class="actor-section">
+        <div th:if="${movie}">
+            <h1 th:text="'Aggiorna film'+ ' *'+ ${movie.title} + '*'"></h1>
+            <form th:action="@{'/admin/updateMovie/' + ${movie.id}}" method="POST" th:object="${movie}">
+                <div>
+                    <label>Titolo: </label>
+                    <input type="text" th:field="${movie.title}"/>
+                </div>
+                <div>
+                    <label>Anno di uscita:</label>
+                    <input type="number" th:field="${movie.year}"/>
+                </div>
+                <button class="btn btn-outline-primary" type="submit">Conferma</button>
+            </form>
+            <div th:if="${movie.director}">
+                <label>Regista: </label><span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Steven
 				Spielberg</span>
-            <a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a>
-        </div>
-        <div th:unless="${movie.director}">
-            <a th:href="@{'/admin/addDirector/' + ${movie.id}}">Aggiungi regista</a>
-        </div>
-
-        <div>
-            <label>Attori: </label>
-            <div th:each="actor: ${movie.actors}">
-                <span th:text="${actor.name} + ' ' + ${actor.surname}">Al Pacino</span>
+                <a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a>
             </div>
-            <a th:href="@{'/admin/updateActors/' + ${movie.id}}">
-                <button class="btn btn-outline-primary" type="submit">Modifica</button>
-            </a>
-        </div>
+            <div th:unless="${movie.director}">
+                <a th:href="@{'/admin/addDirector/' + ${movie.id}}">Aggiungi regista</a>
+            </div>
 
+            <div>
+                <label>Attori: </label>
+                <div th:each="actor: ${movie.actors}">
+                    <span th:text="${actor.name} + ' ' + ${actor.surname}">Al Pacino</span>
+                </div>
+                <a th:href="@{'/admin/updateActors/' + ${movie.id}}">
+                    <button class="btn btn-outline-primary" type="submit">Modifica</button>
+                </a>
+            </div>
+        </div>
+    </div>
+        <div class ="scenes-section">
         <h2>Aggiungi immagini al film</h2>
         <div>
             <form th:action="@{'/admin/addScenes/' + ${movie.id}}" method="POST" th:object="${movie}"
@@ -76,18 +79,20 @@
                 </div>
             </form>
         </div>
+        </div>
 
+        <div class="review-section">
         <div>
             <span>Recensioni: </span>
             <div th:unless="${!movie.reviews.isEmpty()}">Non ci sono recensioni da cancellare</div>
             <div th:each="review: ${movie.reviews}">
-                <span th:text="${review.title} + ' ' + ${review.rate}">Al Pacino</span>
-                <a th:href="@{'/admin/manageReviews' + '/' + ${review.id} + '/' ${movie.id}}">
-                    Cancella Recensione
-                </a>
+                <span th:text="${review.title} + ' ' + ${review.comment}">Al Pacino</span>
             </div>
+            <a th:href="@{'/admin/reviewsInMovie/' + ${movie.id}}">
+                <button class="btn btn-outline-primary" type="submit">Modifica</button>
+            </a>
         </div>
-    </div>
+        </div>
     <div th:unless="${movie}">Film non esistente</div>
 </div>
 </body>

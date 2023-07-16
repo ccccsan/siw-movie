@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import it.uniroma3.siw.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +42,9 @@ public class MovieController {
 
 	@Autowired 
 	private CredentialsService credentialsService;
+
+	@Autowired
+	private ReviewService reviewService;
 
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
@@ -111,7 +115,6 @@ public class MovieController {
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
-		//model.addAttribute("movies", this.movieService.getAllMovies());
 		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
 		return "movies.html";
 	}
@@ -193,13 +196,19 @@ public class MovieController {
 		return "user/formNewReview.html";
 	}
 
-	@GetMapping("/movie/reviews/{reviewId}")
-	public String getReviews(@PathVariable("id")Long id, Model model) {
-		Movie movie = this.movieService.getMovieById(id);
-		List<Review> reviews = movie.getReviews();
-		model.addAttribute("reviews", reviews);
-		model.addAttribute("movie", movie);
-		return "reviews.html";
+	@PostMapping("/user/review/{movieId}")
+	public String newReview(@Valid @ModelAttribute Review review, BindingResult bindingResult,
+							@PathVariable("movieId") Long movieId, Model model) {
+		Review newReview = this.reviewService.newReview(review, movieId);
+		if (!bindingResult.hasErrors()) {
+			Movie movie = this.movieService.addReviewToMovie(movieId, newReview.getId());
+			model.addAttribute(newReview);
+			model.addAttribute(movie);
+			return "user/reviewSuccessful.html";
+		} else {
+			model.addAttribute("movie", this.movieService.getMovieById(movieId));
+			return "user/formNewReview.html";
+		}
 	}
 
 	@GetMapping(value="/admin/deleteMovie/{movieId}")

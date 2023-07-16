@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Recensione Cancellato</title>
-    <link rel="stylesheet" href="/css/stile.css" />
+    <title>Gestisci Recensioni</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/stile.css"/>
 </head>
 <body>
 <header>
     <div th:if="${#request.userPrincipal}">
         <span th:text="${#request.userPrincipal.principal.username}"></span>
-        <a href="/logout">Logout</a>
+        <a href="/logout">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+        </a>
     </div>
     <div th:unless="${#request.userPrincipal}">
-        <a href="/login">Login</a>
+        <a href="/login">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+        </a>
     </div>
 </header>
 
-<div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+<div class="logo"><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 
-<h1 th:text="'Hai cancellato una nuova recensione per il film ' + ${movie.title}"></h1>
-<!--	<div>
-		<h2>Titolo: </h3>
-		<h3 th:text="${review.title}"></h3>
-	</div>
-	<div>
-		<h2>Valutazione: </h2>
-		<h3 th:text="${review.rate}"></span>
-	</div>
-	<div>
-		<h2>Commento: </h2>
-		<h3 th:text="${review.comment}"></h3>
-	</div>
--->
-	<div>
-	<a th:href="@{'/movie'}">Torna all'elenco dei film</a>
-	</div>
+<!--<h1 th:text="'Recensioni del film ' + ${movie.title}"></h1>-->
+<!--<div th:if="${movie.reviews.isEmpty()}">Non ci sono recensioni per questo film</div>-->
+<!--<ul>-->
+<!--    <li th:each="review : ${movie.reviews}">-->
+<!--        <span th:text="${review.title}+' '+${review.comment}"></span>-->
+<!--        <a th:href="@{'/admin/deleteReview/'+ ${review.id}+'/'+${movie.id}}">Cancella</a>-->
+<!--    </li>-->
+<!--</ul>-->
+
+<!--    <div>-->
+<!--        <a th:href="@{'/movie'}">Torna all'elenco dei film</a>-->
+<!--    </div>-->
 </body>
 </html>
