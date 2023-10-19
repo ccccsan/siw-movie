@@ -189,7 +189,7 @@ public class MovieController {
 		return "user/movieUser.html";
 	}
 
-	@GetMapping("/user/addReview/{id}")
+	@GetMapping("/user/formNewReview/{id}")
 	public String addReview(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieService.getMovieById(id));
 		model.addAttribute("review", new Review());
@@ -202,9 +202,9 @@ public class MovieController {
 		Review newReview = this.reviewService.newReview(review, movieId);
 		if (!bindingResult.hasErrors()) {
 			Movie movie = this.movieService.addReviewToMovie(movieId, newReview.getId());
-			model.addAttribute(newReview);
+//			model.addAttribute(newReview);
 			model.addAttribute(movie);
-			return "user/reviewSuccessful.html";
+			return "user/movieUser.html";
 		} else {
 			model.addAttribute("movie", this.movieService.getMovieById(movieId));
 			return "user/formNewReview.html";

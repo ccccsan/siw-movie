@@ -124,7 +124,7 @@ public class MovieService {
 		List<Review> reviews = movie.getReviews();
 		reviews.add(review);
 		movie.setReviews(reviews);
-		review.setMovie(movie);
+//		review.setMovie(movie);
 		return this.movieRepository.save(movie);
 	}
 
