@@ -39,29 +39,24 @@ public class ReviewController {
     private CredentialsService credentialsService;
 
 
+//    @GetMapping("/admin/reviewsInMovie/{movieId}")
+//    public String reviewsInMovie(@PathVariable("id") Long id, Model model) {
+//        Movie movie = movieService.getMovieById(id);
+//        List<Review> reviews = this.reviewService.findAllByMovieId(movie.getId());
+//        model.addAttribute("movie", movie);
+//        model.addAttribute("reviews", reviews);
+//        return "admin/manageReviews.html";
+//    }
 
-    @GetMapping("/admin/reviewsInMovie/{movieId}")
-    public String reviewsInMovie(@PathVariable("id")Long id, Model model) {
-        Movie movie = movieService.getMovieById(id);
-        List<Review> reviews = this.reviewService.findAllByMovieId(movie.getId());
-        if (!reviews.isEmpty()) {
-            model.addAttribute("reviews", reviews);
-            model.addAttribute("movie", movie);
-            return "admin/manageReviews.html";
-        } else {
-            return "admin/formUpdateMovie.html";
-        }
-    }
-
-    @GetMapping(value="/admin/deleteReview/{reviewId}/{movieId}")
-    public String deleteReview(@PathVariable("reviewId")Long reviewId, @PathVariable("movieId") Long movieId,
-                               Model model) {
-        this.reviewService.deleteReview(reviewId);
-        Movie movie = this.movieService.getMovieById(movieId);
-        model.addAttribute("movie", movie );
-        model.addAttribute("reviews", movie.getReviews());
-        return "admin/reviewToDelete.html";
-    }
+//    @GetMapping(value = "/admin/deleteReview/{reviewId}/{movieId}")
+//    public String deleteReview(@PathVariable("reviewId") Long reviewId, @PathVariable("movieId") Long movieId,
+//                               Model model) {
+//        this.reviewService.deleteReview(reviewId);
+//        Movie movie = this.movieService.getMovieById(movieId);
+//        model.addAttribute("movie", movie);
+//        model.addAttribute("reviews", movie.getReviews());
+//        return "admin/reviewToDelete.html";
+//    }
 
     @GetMapping("/reviews/reviewsOrdered/{id}")
     public String orderReviews(@PathVariable("id") Long id, Model model) {

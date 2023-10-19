@@ -72,7 +72,7 @@ public class MovieController {
 	
 	@GetMapping(value="/admin/manageMovies")
 	public String manageMovies(Model model) {
-		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
+		model.addAttribute("movies", this.movieService.getMovies());
 		return "admin/manageMovies.html";
 	}
 	
@@ -115,7 +115,7 @@ public class MovieController {
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
-		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
+		model.addAttribute("movies", this.movieService.getMovies());
 		return "movies.html";
 	}
 
@@ -178,7 +178,7 @@ public class MovieController {
 		UserDetails user = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(user.getUsername());
 		model.addAttribute("user", credentials.getUser());
-		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
+		model.addAttribute("movies", this.movieService.getMovies());
 		return "user/moviesUser.html";
 	}
 
@@ -211,10 +211,20 @@ public class MovieController {
 		}
 	}
 
+	@GetMapping(value = "/admin/deleteReview/{reviewId}/{movieId}")
+	public String deleteReview(@PathVariable("reviewId") Long reviewId, @PathVariable("movieId") Long movieId,
+							   Model model) {
+		this.reviewService.deleteReview(reviewId);
+		Movie movie = this.movieService.getMovieById(movieId);
+		model.addAttribute("movie", movie);
+		model.addAttribute("reviews", movie.getReviews());
+		return "admin/formUpdateMovie.html";
+	}
+
 	@GetMapping(value="/admin/deleteMovie/{movieId}")
 	public String deleteMovie(@PathVariable("movieId")Long movieId, Model model) {
 		this.movieService.deleteMovie(movieId);
-		model.addAttribute("movies", this.movieService.getAllMoviesByAsc());
+		model.addAttribute("movies", this.movieService.getMovies());
 		return "admin/manageMovies.html";
 	}
 

@@ -75,10 +75,9 @@ public class ReviewService {
         review.setMovie(movie);
         review.setReviewer(credentials.getUser());
         this.reviewRepository.save(review);
-        List<Review> reviews = movie.getReviews();
-        movie.getReviews().add(review);
-
-        this.movieRepository.save(movie);
+//        List<Review> reviews = movie.getReviews();
+//        reviews.add(review);
+//        this.movieRepository.save(movie);
 
         return review;
     }

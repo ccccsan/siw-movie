@@ -82,16 +82,15 @@
         </div>
 
         <div class="review-section">
-        <div>
+            <div th:if="${movie}">
             <span>Recensioni: </span>
             <div th:unless="${!movie.reviews.isEmpty()}">Non ci sono recensioni da cancellare</div>
             <div th:each="review: ${movie.reviews}">
                 <span th:text="${review.title} + ' ' + ${review.comment}">Al Pacino</span>
+
+                <a th:href="@{'/admin/deleteReview' + '/' + ${review.id} + '/' + ${movie.id}}">Cancella</a>
             </div>
-            <a th:href="@{'/admin/reviewsInMovie/' + ${movie.id}}">
-                <button class="btn btn-outline-primary" type="submit">Modifica</button>
-            </a>
-        </div>
+            </div>
         </div>
     <div th:unless="${movie}">Film non esistente</div>
 </div>

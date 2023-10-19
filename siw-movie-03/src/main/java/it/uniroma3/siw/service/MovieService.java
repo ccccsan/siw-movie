@@ -53,10 +53,6 @@ public class MovieService {
 		return this.movieRepository.findAll();
 	}
 
-	public List<Movie> getAllMoviesByAsc() {
-		return this.movieRepository.findByOrderByYearAsc();
-	}
-
 	public List<Movie> getMoviesByYear(int year) {
 		return this.movieRepository.findByYear(year);
 	}

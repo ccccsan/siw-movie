@@ -57,7 +57,7 @@ public class ArtistController {
 
 	@GetMapping("/artist")
 	public String getArtists(Model model) {
-		Iterable<Artist> artists = this.artistService.getAllArtistsByAsc();
+		Iterable<Artist> artists = this.artistService.getAllArtists();
 		model.addAttribute("artists", artists);
 		return "artists.html";
 	}

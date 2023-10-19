@@ -36,11 +36,6 @@ public class ArtistService {
     }
 
     @Transactional
-    public List<Artist> getAllArtistsByAsc() {
-    	return this.artistRepository.findByOrderByNameAsc();
-    }
-
-    @Transactional
     public boolean existsByNameAndSurname(String name, String surname) {
         return artistRepository.existsByNameAndSurname(name, surname);
     }
