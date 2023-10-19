@@ -189,28 +189,6 @@ public class MovieController {
 		return "user/movieUser.html";
 	}
 
-	@GetMapping("/user/formNewReview/{id}")
-	public String addReview(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("movie", this.movieService.getMovieById(id));
-		model.addAttribute("review", new Review());
-		return "user/formNewReview.html";
-	}
-
-	@PostMapping("/user/review/{movieId}")
-	public String newReview(@Valid @ModelAttribute Review review, BindingResult bindingResult,
-							@PathVariable("movieId") Long movieId, Model model) {
-		Review newReview = this.reviewService.newReview(review, movieId);
-		if (!bindingResult.hasErrors()) {
-			Movie movie = this.movieService.addReviewToMovie(movieId, newReview.getId());
-//			model.addAttribute(newReview);
-			model.addAttribute(movie);
-			return "user/movieUser.html";
-		} else {
-			model.addAttribute("movie", this.movieService.getMovieById(movieId));
-			return "user/formNewReview.html";
-		}
-	}
-
 	@GetMapping(value = "/admin/deleteReview/{reviewId}/{movieId}")
 	public String deleteReview(@PathVariable("reviewId") Long reviewId, @PathVariable("movieId") Long movieId,
 							   Model model) {

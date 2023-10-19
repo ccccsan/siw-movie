@@ -38,25 +38,27 @@ public class ReviewController {
     @Autowired
     private CredentialsService credentialsService;
 
+    @GetMapping("/user/formNewReview/{id}")
+    public String formNewReview(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("movie", this.movieService.getMovieById(id));
+        model.addAttribute("review", new Review());
+        return "user/formNewReview.html";
+    }
 
-//    @GetMapping("/admin/reviewsInMovie/{movieId}")
-//    public String reviewsInMovie(@PathVariable("id") Long id, Model model) {
-//        Movie movie = movieService.getMovieById(id);
-//        List<Review> reviews = this.reviewService.findAllByMovieId(movie.getId());
-//        model.addAttribute("movie", movie);
-//        model.addAttribute("reviews", reviews);
-//        return "admin/manageReviews.html";
-//    }
-
-//    @GetMapping(value = "/admin/deleteReview/{reviewId}/{movieId}")
-//    public String deleteReview(@PathVariable("reviewId") Long reviewId, @PathVariable("movieId") Long movieId,
-//                               Model model) {
-//        this.reviewService.deleteReview(reviewId);
-//        Movie movie = this.movieService.getMovieById(movieId);
-//        model.addAttribute("movie", movie);
-//        model.addAttribute("reviews", movie.getReviews());
-//        return "admin/reviewToDelete.html";
-//    }
+    @PostMapping("/user/review/{movieId}")
+    public String newReview(@ModelAttribute Review review, BindingResult bindingResult,
+                                   @PathVariable("movieId") Long movieId, Model model) {
+        if (!bindingResult.hasErrors()) {
+            Review newReview = this.reviewService.newReview(review, movieId);
+            Movie movie = this.movieService.addReviewToMovie(movieId, newReview.getId());
+            model.addAttribute("movie", movie);
+            model.addAttribute("review", newReview);
+            return "user/movieUser.html";
+        } else {
+            model.addAttribute("movie", this.movieService.getMovieById(movieId));
+            return "user/formNewReview.html";
+        }
+    }
 
     @GetMapping("/reviews/reviewsOrdered/{id}")
     public String orderReviews(@PathVariable("id") Long id, Model model) {

@@ -121,10 +121,8 @@ public class MovieService {
 	public Movie addReviewToMovie(Long movieId, Long reviewId) {
 		Movie movie = this.getMovieById(movieId);
 		Review review = this.reviewService.getReviewById(reviewId);
-		List<Review> reviews = movie.getReviews();
-		reviews.add(review);
-		movie.setReviews(reviews);
-//		review.setMovie(movie);
+		movie.getReviews().add(review);
+
 		return this.movieRepository.save(movie);
 	}
 

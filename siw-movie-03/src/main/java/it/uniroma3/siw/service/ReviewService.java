@@ -24,7 +24,7 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private MovieRepository movieRepository;
+    private MovieService movieService;
 
     @Autowired
     private UserService userService;
@@ -53,7 +53,7 @@ public class ReviewService {
         Movie movie = review.getMovie();
         review.getReviewer().getReviews().remove(review);
         review.getMovie().getReviews().remove(review);
-        this.movieRepository.save(movie);
+        this.movieService.saveMovie(movie);
         this.reviewRepository.delete(review);
     }
 
@@ -67,9 +67,19 @@ public class ReviewService {
         return this.reviewRepository.save(review);
     }
 
+    public Review saveReviewToMovie(Review review, Long movieId) {
+        Movie movie = this.movieService.getMovieById(movieId);
+        List<Review> reviews = movie.getReviews();
+        reviews.add(review);
+        movie.setReviews(reviews);
+        review.setMovie(movie);
+        this.reviewRepository.save(review);
+        return review;
+    }
+
     @Transactional
-    public Review newReview(@Valid Review review, Long movieId) {
-        Movie movie = this.movieRepository.findById(movieId).get();
+    public Review newReview(Review review, Long movieId) {
+       Movie movie = this.movieService.getMovieById(movieId);
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = credentialsService.getCredentials(user.getUsername());
         review.setMovie(movie);
@@ -84,7 +94,7 @@ public class ReviewService {
 
     @Transactional
     public List<Review> findAllByMovieId(Long movieId) {
-    	return this.reviewRepository.findAllByMovieId(this.movieRepository.findById(movieId).get().getId());
+    	return this.reviewRepository.findAllByMovieId(this.movieService.getMovieById(movieId).getId());
     }
 
 }
